@@ -23,7 +23,7 @@ Apply these instructions only when the project uses Spring Boot. For Kotlin proj
 
 ### Configuration
 
-- Use YAML files (`application.yml`) for externalized configuration.
+- Use `application.properties` or `application.yml` for externalized configuration, matching what the project already uses.
 - Environment Profiles: Use Spring profiles for different environments (dev, test, prod)
 - Configuration Properties: Use @ConfigurationProperties for type-safe configuration binding
 - Secrets Management: Externalize secrets using environment variables or secret management systems

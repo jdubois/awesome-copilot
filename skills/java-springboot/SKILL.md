@@ -1,6 +1,6 @@
 ---
 name: java-springboot
-description: 'Get best practices for developing applications with Spring Boot.'
+description: 'Get on-demand best practices for developing Spring Boot applications: web, service and data layers, with pointers to detailed references for configuration, database, logging, security and testing.'
 ---
 
 # Spring Boot Best Practices
@@ -9,22 +9,19 @@ Your goal is to help me write high-quality Spring Boot applications by following
 
 ## Project Setup & Structure
 
-- **Build Tool:** Use Maven (`pom.xml`) or Gradle (`build.gradle`) for dependency management.
+- **Build Tool:** Use Maven (`pom.xml`) or Gradle (`build.gradle(.kts)`), whichever the project already uses for dependency management.
 - **Starters:** Use Spring Boot starters (e.g., `spring-boot-starter-web`, `spring-boot-starter-data-jpa`) to simplify dependency management.
 - **Package Structure:** Organize code by feature/domain (e.g., `com.example.app.order`, `com.example.app.user`) rather than by layer (e.g., `com.example.app.controller`, `com.example.app.service`).
 
-## Dependency Injection & Components
+## Core Rules (see the always-on instruction)
 
-- **Constructor Injection:** Always use constructor-based injection for required dependencies. This makes components easier to test and dependencies explicit.
-- **Immutability:** Declare dependency fields as `private final`.
-- **Component Stereotypes:** Use `@Component`, `@Service`, `@Repository`, and `@Controller`/`@RestController` annotations appropriately to define beans.
+Dependency injection, configuration basics, logging and basic input handling are defined in [instructions/springboot.instructions.md](../../instructions/springboot.instructions.md); they are not repeated here. Deeper guidance:
 
-## Configuration
-
-- **Externalized Configuration:** Use `application.yml` (or `application.properties`) for configuration. YAML is often preferred for its readability and hierarchical structure.
-- **Type-Safe Properties:** Use `@ConfigurationProperties` to bind configuration to strongly-typed Java objects.
-- **Profiles:** Use Spring Profiles (`application-dev.yml`, `application-prod.yml`) to manage environment-specific configurations.
-- **Secrets Management:** Do not hardcode secrets. Use environment variables, or a dedicated secret management tool like HashiCorp Vault or AWS Secrets Manager.
+- Configuration (profiles, `@ConfigurationProperties`, secrets): [configuration](../create-spring-boot-java-project/references/configuration.md)
+- Database (PostgreSQL, Hibernate settings, Flyway/Liquibase): [database](../create-spring-boot-java-project/references/database.md)
+- Logging (levels, structured logging): [logging](../create-spring-boot-java-project/references/logging.md)
+- Security basics: [security](../create-spring-boot-java-project/references/security.md)
+- Boot 3 vs 4 differences: [spring-boot-4](../create-spring-boot-java-project/references/spring-boot-4.md)
 
 ## Web Layer (Controllers)
 
@@ -45,21 +42,16 @@ Your goal is to help me write high-quality Spring Boot applications by following
 - **Custom Queries:** For complex queries, use `@Query` or the JPA Criteria API.
 - **Projections:** Use DTO projections to fetch only the necessary data from the database.
 
-## Logging
-
-- **SLF4J:** Use the SLF4J API for logging.
-- **Logger Declaration:** `private static final Logger logger = LoggerFactory.getLogger(MyClass.class);`
-- **Parameterized Logging:** Use parameterized messages (`logger.info("Processing user {}...", userId);`) instead of string concatenation to improve performance.
-
 ## Testing
 
-- **Unit Tests:** Write unit tests for services and components using JUnit 5 and a mocking framework like Mockito.
-- **Integration Tests:** Use `@SpringBootTest` for integration tests that load the Spring application context.
-- **Test Slices:** Use test slice annotations like `@WebMvcTest` (for controllers) or `@DataJpaTest` (for repositories) to test specific parts of the application in isolation.
-- **Testcontainers:** Consider using Testcontainers for reliable integration tests with real databases, message brokers, etc.
+- Use the `spring-boot-testing` skill for slices (`@WebMvcTest`, `@DataJpaTest`), Testcontainers with `@ServiceConnection`, the Failsafe `*IT` gotcha, and Boot 3 vs 4 / JUnit 5 vs 6 compatibility.
+- Plain JUnit + Mockito for services; `@SpringBootTest` only for real integration tests.
 
 ## Security
 
-- **Spring Security:** Use Spring Security for authentication and authorization.
-- **Password Encoding:** Always encode passwords using a strong hashing algorithm like BCrypt.
-- **Input Sanitization:** Prevent SQL injection by using Spring Data JPA or parameterized queries. Prevent Cross-Site Scripting (XSS) by properly encoding output.
+- Use Spring Security; always hash passwords (BCrypt or the delegating encoder) and use parameterized queries.
+- For authentication, authorization, OAuth2/JWT, method security, CSRF/CORS: use the `spring-security` skill. Basics when scaffolding: [security](../create-spring-boot-java-project/references/security.md).
+
+## Observability
+
+- Expose Actuator `health`/`info` only by default; for metrics, tracing and log correlation (Micrometer, OpenTelemetry) use the `spring-observability` skill.

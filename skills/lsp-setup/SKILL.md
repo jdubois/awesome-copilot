@@ -13,7 +13,7 @@ DO NOT USE FOR: general coding tasks, IDE/editor LSP configuration, non-Copilot-
 
 1. **Ask the language** — use `ask_user` to ask which programming language(s) the user wants LSP support for
 2. **Detect the OS** — run `uname -s` (or check for Windows via `$env:OS` / `%OS%`) to determine macOS, Linux, or Windows
-3. **Look up the LSP server** — read `references/lsp-servers.md` for known servers, install commands, and config snippets
+3. **Look up the LSP server** — read `references/lsp-servers.md` for known servers, install commands, and config snippets (for Java, also read `references/java-jdtls.md`)
 4. **Ask scope** — use `ask_user` to ask whether the config should be user-level (`~/.copilot/lsp-config.json`) or repo-level (`lsp.json` at the repo root or `.github/lsp.json`)
 5. **Install the server** — run the appropriate install command for the detected OS
 6. **Write the config** — merge the new server entry into the chosen config file (`~/.copilot/lsp-config.json` for user-level; `lsp.json` or `.github/lsp.json` for repo-level). If a repo-level config already exists, keep using that location; otherwise ask the user which repo-level location they prefer. Create the file if missing and preserve existing entries.
@@ -68,3 +68,7 @@ After setup, tell the user:
 2. Re-launch `copilot` in a project with files of the configured language
 3. Run `/lsp` to check the server status
 4. Try code intelligence features like go-to-definition or hover
+
+## Java
+
+For Java semantic navigation, prefer the `lsp` tool (`goToDefinition`, `findReferences`, `hover`, `incomingCalls`) over grep/view once a server is configured. LSP is optional for Java and is not a prerequisite for build or runtime diagnostics. See `references/java-jdtls.md` for setup details and troubleshooting.
