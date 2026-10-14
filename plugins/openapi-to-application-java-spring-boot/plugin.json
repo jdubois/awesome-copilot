@@ -1,7 +1,7 @@
 {
   "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
   "name": "openapi-to-application-java-spring-boot",
-  "description": "Generate production-ready Spring Boot applications from OpenAPI specifications. Includes project scaffolding, REST controller generation, service layer organization, and Spring Boot best practices.",
+  "description": "Generate Spring Boot (Java) applications from OpenAPI specifications, spec-first with openapi-generator. Bundles project scaffolding, Spring Boot best practices, security and testing skills.",
   "version": "1.0.0",
   "author": {
     "name": "Awesome Copilot Community"
@@ -18,10 +18,15 @@
   "extensions": {
     "com.github.awesome-copilot": {
       "agents": [
-        "./agents/openapi-to-application.md"
+        "./agents/openapi-to-application-java-spring-boot.md"
       ],
       "skills": [
-        "./skills/openapi-to-application-code/"
+        "./skills/create-spring-boot-java-project/",
+        "./skills/java-springboot/",
+        "./skills/java-testcontainers/",
+        "./skills/openapi-to-application-java-spring-boot/",
+        "./skills/spring-boot-testing/",
+        "./skills/spring-security/"
       ]
     }
   }

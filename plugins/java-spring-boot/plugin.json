@@ -1,0 +1,41 @@
+{
+  "$schema": "https://agent-plugins.org/schemas/1.0.0/plugin.schema.json",
+  "name": "java-spring-boot",
+  "description": "Spring Boot skills on top of core Java: project creation, best practices, testing, Spring Security, observability and Boot 4 migration.",
+  "version": "1.0.0",
+  "author": {
+    "name": "Awesome Copilot Community"
+  },
+  "repository": "https://github.com/github/awesome-copilot",
+  "license": "MIT",
+  "keywords": [
+    "java",
+    "migration",
+    "observability",
+    "spring-boot",
+    "spring-security",
+    "testing"
+  ],
+  "extensions": {
+    "com.github.awesome-copilot": {
+      "skills": [
+        "./skills/create-spring-boot-java-project/",
+        "./skills/java-add-graalvm-native-image-support/",
+        "./skills/java-debugging/",
+        "./skills/java-development/",
+        "./skills/java-diagnostics/",
+        "./skills/java-hibernate-jpa/",
+        "./skills/java-junit/",
+        "./skills/java-springboot/",
+        "./skills/java-testcontainers/",
+        "./skills/java-upgrade/",
+        "./skills/javax-to-jakarta-migration/",
+        "./skills/lsp-setup/",
+        "./skills/spring-boot-4-migration/",
+        "./skills/spring-boot-testing/",
+        "./skills/spring-observability/",
+        "./skills/spring-security/"
+      ]
+    }
+  }
+}

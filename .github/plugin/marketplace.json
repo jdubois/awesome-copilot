@@ -1294,8 +1294,8 @@
     {
       "name": "java-development",
       "source": "plugins/java-development",
-      "description": "Comprehensive collection of prompts and instructions for Java development including Spring Boot, Quarkus, testing, documentation, and best practices.",
-      "version": "1.0.0"
+      "description": "Core Java skills for any Java project: JUnit, Javadoc, Hibernate/JPA, Testcontainers, debugging and JVM diagnostics, Java upgrades, Jakarta migration, GraalVM native image, refactoring and LSP setup.",
+      "version": "2.0.0"
     },
     {
       "name": "java-mcp-development",
@@ -1308,6 +1308,18 @@
       "source": "plugins/java-modernization-studio",
       "description": "Drive the GitHub Copilot App Modernization for Java workflow from an interactive canvas: environment readiness, repo assessment, prioritized plan and progress, validation gates, and one-click predefined-task runs grounded in the repo's real artifacts.",
       "version": "1.0.2"
+    },
+    {
+      "name": "java-quarkus",
+      "source": "plugins/java-quarkus",
+      "description": "Quarkus skills on top of core Java: project creation, Dev Services and testing, native and container builds.",
+      "version": "1.0.0"
+    },
+    {
+      "name": "java-spring-boot",
+      "source": "plugins/java-spring-boot",
+      "description": "Spring Boot skills on top of core Java: project creation, best practices, testing, Spring Security, observability and Boot 4 migration.",
+      "version": "1.0.0"
     },
     {
       "name": "jupyter-notebooks",
@@ -1642,7 +1654,7 @@
     {
       "name": "openapi-to-application-java-spring-boot",
       "source": "plugins/openapi-to-application-java-spring-boot",
-      "description": "Generate production-ready Spring Boot applications from OpenAPI specifications. Includes project scaffolding, REST controller generation, service layer organization, and Spring Boot best practices.",
+      "description": "Generate Spring Boot (Java) applications from OpenAPI specifications, spec-first with openapi-generator. Bundles project scaffolding, Spring Boot best practices, security and testing skills.",
       "version": "1.0.0"
     },
     {
