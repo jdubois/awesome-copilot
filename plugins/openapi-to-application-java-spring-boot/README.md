@@ -13,13 +13,13 @@ copilot plugin install openapi-to-application-java-spring-boot@awesome-copilot
 
 ### Usage
 
-Invoke the `openapi-to-application` agent (or the `openapi-to-application-code` skill) and provide your OpenAPI specification.
+Invoke the `openapi-to-application-java-spring-boot` agent (or the `openapi-to-application-java-spring-boot` skill) and provide your OpenAPI specification.
 
 ### Skills
 
 | Skill | Purpose |
 |-------|---------|
-| `openapi-to-application-code` | Spec-first generation with openapi-generator, then implementation and tests |
+| `openapi-to-application-java-spring-boot` | Spec-first generation with openapi-generator, then implementation and tests |
 | `create-spring-boot-java-project` | Scaffold the project from start.spring.io |
 | `java-springboot` | Spring Boot best practices |
 | `spring-security` | Map OpenAPI security schemes to Spring Security |

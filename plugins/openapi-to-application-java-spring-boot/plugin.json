@@ -18,13 +18,13 @@
   "extensions": {
     "com.github.awesome-copilot": {
       "agents": [
-        "./agents/openapi-to-application.md"
+        "./agents/openapi-to-application-java-spring-boot.md"
       ],
       "skills": [
         "./skills/create-spring-boot-java-project/",
         "./skills/java-springboot/",
         "./skills/java-testcontainers/",
-        "./skills/openapi-to-application-code/",
+        "./skills/openapi-to-application-java-spring-boot/",
         "./skills/spring-boot-testing/",
         "./skills/spring-security/"
       ]
