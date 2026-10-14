@@ -1,8 +1,10 @@
 ---
-applyTo: '*'
+applyTo: '**/*.java, **/application*.properties, **/application*.yml, **/application*.yaml'
 description: 'Quarkus and MCP Server with HTTP SSE transport development standards and instructions'
 ---
 # Quarkus MCP Server
+
+Apply these instructions only when the project uses Quarkus with the `mcp-server-sse` extension.
 
 Build MCP servers with Java 21, Quarkus, and HTTP SSE transport.
 

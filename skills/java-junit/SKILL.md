@@ -47,6 +47,7 @@ Your goal is to help me write effective unit tests with JUnit 5, covering both s
 - Use `assertThrows` or `assertDoesNotThrow` to test for exceptions.
 - Group related assertions with `assertAll` to ensure all assertions are checked before the test fails.
 - Use descriptive messages in assertions to provide clarity on failure.
+- For detailed assertion rules (lazy `Supplier` messages, `assertThrowsExactly`, timeouts), see `instructions/java-junit5-assertions.instructions.md`, which applies automatically to test files.
 
 ## Mocking and Isolation
 

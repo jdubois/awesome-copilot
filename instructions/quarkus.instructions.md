@@ -1,8 +1,9 @@
 ---
-applyTo: '*'
+applyTo: '**/*.java, **/application*.properties, **/application*.yml, **/application*.yaml'
 description: 'Quarkus development standards and instructions'
 ---
 
+- Apply these instructions only when the project uses Quarkus (`io.quarkus` dependencies or the Quarkus Maven/Gradle plugin).
 - Instructions for high-quality Quarkus applications with Java 17 or later.
 
 ## Project Context

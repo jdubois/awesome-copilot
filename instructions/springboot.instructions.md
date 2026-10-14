@@ -1,9 +1,11 @@
 ---
 description: 'Guidelines for building Spring Boot base applications'
-applyTo: '**/*.java, **/*.kt'
+applyTo: '**/*.java'
 ---
 
 # Spring Boot Development
+
+Apply these instructions only when the project uses Spring Boot. For Kotlin projects, see `kotlin-springboot`.
 
 ## General Instructions
 
