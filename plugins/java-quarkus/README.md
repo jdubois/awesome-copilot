@@ -20,6 +20,8 @@ copilot plugin install java-quarkus@awesome-copilot
 | `java-junit` | see `skills/java-junit/SKILL.md` |
 | `java-testcontainers` | see `skills/java-testcontainers/SKILL.md` |
 | `java-upgrade` | see `skills/java-upgrade/SKILL.md` |
+| `javax-to-jakarta-migration` | see `skills/javax-to-jakarta-migration/SKILL.md` |
+| `lsp-setup` | see `skills/lsp-setup/SKILL.md` |
 | `quarkus-dev-services-and-testing` | see `skills/quarkus-dev-services-and-testing/SKILL.md` |
 | `quarkus-native-and-container` | see `skills/quarkus-native-and-container/SKILL.md` |
 

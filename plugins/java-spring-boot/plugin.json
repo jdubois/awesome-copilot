@@ -28,6 +28,8 @@
         "./skills/java-springboot/",
         "./skills/java-testcontainers/",
         "./skills/java-upgrade/",
+        "./skills/javax-to-jakarta-migration/",
+        "./skills/lsp-setup/",
         "./skills/spring-boot-4-migration/",
         "./skills/spring-boot-testing/",
         "./skills/spring-observability/",

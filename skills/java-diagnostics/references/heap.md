@@ -1,13 +1,15 @@
 # Heap, histograms, Eclipse MAT
 
-## Tier 1: class histogram (brief pause)
+## Tier 1: class histogram (no pause with `-all=true`; full GC otherwise)
 
 ```bash
-jcmd <pid> GC.class_histogram | head -40
-jmap -histo:live <pid> | head -40
+jcmd <pid> GC.class_histogram -all=true | head -40   # no GC; includes unreachable objects
+jmap -histo <pid> | head -40                          # no GC
+jcmd <pid> GC.class_histogram | head -40             # full GC, live objects only
+jmap -histo:live <pid> | head -40                    # full GC, live objects only
 ```
 
-By default these force a full GC to count only live objects. Take two histograms several minutes apart under load; classes whose instance count and bytes keep growing are leak suspects.
+The last two force a full GC (a pause): on production, get explicit consent first. The first two avoid the GC but may count garbage that is not yet collected. Take two histograms several minutes apart under load; classes whose instance count and bytes keep growing are leak suspects.
 
 ## Tier 3: heap dump (explicit consent required)
 

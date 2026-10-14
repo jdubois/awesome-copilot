@@ -27,7 +27,7 @@ Set via `waitingFor(...)`. Pick the signal that means "actually ready", not "pro
 | `Wait.forLogMessage(regex, times)` | Ready line in logs (regex must match the whole line, e.g. `.*ready.*\\n`) |
 | `Wait.forHealthcheck()` | Image defines `HEALTHCHECK` |
 | `Wait.forSuccessfulCommand("cmd")` | Probe via exec inside the container |
-| `Wait.forAll(a, b)` | Combine strategies |
+| `new WaitAllStrategy().withStrategy(a).withStrategy(b)` | Combine strategies (`org.testcontainers.containers.wait.strategy.WaitAllStrategy`) |
 
 Raise `withStartupTimeout` on slow CI instead of adding sleeps. Never use `Thread.sleep`; poll with Awaitility for asynchronous outcomes in tests.
 

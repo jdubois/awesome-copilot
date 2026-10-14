@@ -87,7 +87,10 @@ Entities referenced after `clear()` are detached; reload or use `getReference`.
 ## Bulk operations and StatelessSession
 
 - Updates over many rows: set-based `update Order o set o.status = :s where ...` (bypasses lifecycle callbacks, `@Version` unless `versioned`, cascades, and caches; clear the context afterwards).
-- Pure ETL/import: `StatelessSession` (no persistence context, no dirty checking, no cascade, no second-level cache) with `insert`/`update`, plus `hibernate.jdbc.batch_size`. Hibernate 6.x/7 improved its batching and query support; confirm the API for your version.
+- Pure ETL/import: `StatelessSession` (no persistence context, no dirty checking, no cascade) with `insert`/`update`.
+  - Hibernate 6: it bypasses the second-level cache and uses `hibernate.jdbc.batch_size` for JDBC batching.
+  - Hibernate 7: it uses the second-level cache by default (disable per session if unwanted), and `hibernate.jdbc.batch_size` has no effect on it; set the batch size with `StatelessSession.setJdbcBatchSize(n)` and prefer the bulk operations `insertMultiple`/`updateMultiple`/`upsertMultiple`/`deleteMultiple`.
+  - Confirm the API for your exact version.
 - Streaming reads: `query.getResultStream()`/`scroll` with `hibernate.jdbc.fetch_size`; close the stream and clear the context periodically. Many drivers (PostgreSQL) only stream inside a transaction with autocommit off and a fetch size set.
 
 ## Query hygiene

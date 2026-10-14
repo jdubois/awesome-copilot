@@ -26,6 +26,8 @@
         "./skills/java-junit/",
         "./skills/java-testcontainers/",
         "./skills/java-upgrade/",
+        "./skills/javax-to-jakarta-migration/",
+        "./skills/lsp-setup/",
         "./skills/quarkus-dev-services-and-testing/",
         "./skills/quarkus-native-and-container/"
       ]

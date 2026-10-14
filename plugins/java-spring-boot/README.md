@@ -21,6 +21,8 @@ copilot plugin install java-spring-boot@awesome-copilot
 | `java-springboot` | see `skills/java-springboot/SKILL.md` |
 | `java-testcontainers` | see `skills/java-testcontainers/SKILL.md` |
 | `java-upgrade` | see `skills/java-upgrade/SKILL.md` |
+| `javax-to-jakarta-migration` | see `skills/javax-to-jakarta-migration/SKILL.md` |
+| `lsp-setup` | see `skills/lsp-setup/SKILL.md` |
 | `spring-boot-4-migration` | see `skills/spring-boot-4-migration/SKILL.md` |
 | `spring-boot-testing` | see `skills/spring-boot-testing/SKILL.md` |
 | `spring-observability` | see `skills/spring-observability/SKILL.md` |

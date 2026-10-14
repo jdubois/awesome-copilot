@@ -7,7 +7,7 @@ Dependency: `spring-boot-starter-actuator`.
 - Web exposure defaults to `health` only (Boot 3/4). Allow-list explicitly: `management.endpoints.web.exposure.include=health,info,metrics,prometheus`.
 - Disable the rest: `management.endpoints.access.default=none` then enable chosen ones (`management.endpoint.<id>.access=read-only`) on Boot 3.4+; older `management.endpoint.<id>.enabled` still works on 3.3 and earlier.
 - Move to an internal port: `management.server.port=9090` (and `management.server.address`).
-- Secure with Spring Security: see `spring-security` skill, [actuator protection](../../spring-security/references/actuator-protection.md).
+- Secure with Spring Security: see `spring-security` skill, `references/actuator-protection.md` in that skill.
 - Info: `management.info.env.enabled=true`, `management.info.git.mode=simple`, `management.info.build` via the build plugin's `build-info` goal.
 
 ## Health

@@ -12,7 +12,7 @@ class Account {
 
 - Hibernate adds `WHERE version = ?` to updates; a concurrent change throws `OptimisticLockException` (Hibernate: `StaleObjectStateException`). Catch it at the use-case boundary, then retry or tell the user to reload.
 - Use `Integer`/`Long`/`Instant` version types; never modify the version manually.
-- With DTO round-trips (web forms), send the version to the client and set it back on the loaded entity (`em.find` then compare), otherwise the check is lost on detached merge.
+- With DTO round-trips (web forms), send the version to the client and, on submit, load the entity (`em.find`), compare the submitted version with the loaded one and reject a mismatch (e.g. HTTP 409). Never assign the client's version to a managed entity: Jakarta Persistence forbids applications from changing the version. Alternatively `merge()` a detached entity that carries its `@Version`; the provider then checks it and throws `OptimisticLockException` on a stale one, which you handle at the use-case boundary.
 - `LockModeType.OPTIMISTIC_FORCE_INCREMENT` bumps the version even if only children changed, useful for aggregate roots.
 - Bulk HQL updates ignore `@Version` unless you write `update versioned`.
 

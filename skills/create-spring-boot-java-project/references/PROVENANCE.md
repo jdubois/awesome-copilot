@@ -5,7 +5,7 @@ This skill and its references are adapted from **dr-jskill** by Julien Dubois (t
 - Source: https://github.com/jdubois/dr-jskill
 - Commit read: `29e71996048e4086bfa389268a3c6c2e49ea3f25`
 - License of the source: Apache License 2.0 (https://www.apache.org/licenses/LICENSE-2.0)
-- This repository is MIT licensed. The adapted material remains available under Apache-2.0 terms; the attribution and this notice must be kept with any redistribution of the adapted files.
+- The adapted material is contributed to this repository by its original author (Julien Dubois, sole copyright holder of dr-jskill) under this repository's MIT license, and remains available upstream under Apache-2.0. Keep the attribution and this notice with any redistribution of the adapted files.
 
 ## Files adapted
 

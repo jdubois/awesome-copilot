@@ -45,10 +45,16 @@ Run real dependencies (databases, brokers, caches) in Docker for integration tes
     <artifactId>testcontainers-postgresql</artifactId>
     <scope>test</scope>
   </dependency>
+  <dependency>
+    <groupId>org.postgresql</groupId>
+    <artifactId>postgresql</artifactId>
+    <version>42.7.14</version>
+    <scope>test</scope>
+  </dependency>
 </dependencies>
 ```
 
-Gradle: `testImplementation platform("org.testcontainers:testcontainers-bom:2.0.5")` then the same artifacts without versions.
+Gradle: `testImplementation platform("org.testcontainers:testcontainers-bom:2.0.5")`, then the same Testcontainers artifacts without versions, plus `testRuntimeOnly "org.postgresql:postgresql:42.7.14"`. The Testcontainers module does not bundle the JDBC driver; skip the explicit driver when the project already depends on one (e.g. via Spring Boot's BOM).
 
 ## Minimal test
 

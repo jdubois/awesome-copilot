@@ -14,8 +14,10 @@ Check the project's Quarkus version first. For generic (non-Quarkus) GraalVM wor
 ./mvnw package -Dnative -Dquarkus.native.container-build=true
 # local Mandrel/GraalVM (JAVA_HOME / GRAALVM_HOME must point to it)
 ./mvnw package -Dnative
-# Gradle
+# Gradle, Quarkus 3.10+
 ./gradlew build -Dquarkus.native.enabled=true -Dquarkus.package.jar.enabled=false
+# Gradle, older Quarkus
+./gradlew build -Dquarkus.package.type=native
 ```
 
 Binary: `target/*-runner`. Mandrel is Red Hat's GraalVM distribution for Quarkus; pick the builder image matching your Java version via `quarkus.native.builder-image` if needed. Native builds are slow and memory-hungry (several GB); do them in CI or on demand, not on every test run.
@@ -24,7 +26,7 @@ Binary: `target/*-runner`. Mandrel is Red Hat's GraalVM distribution for Quarkus
 
 | Symptom | Fix |
 |---|---|
-| `ClassNotFoundException` / `NoSuchMethodException` at runtime (reflection, JSON serialization of DTOs) | annotate with `@RegisterForReflection` or list `quarkus.native.additional-build-args` / `reflection-config.json` |
+| `ClassNotFoundException` / `NoSuchMethodException` at runtime (reflection, JSON serialization of DTOs) | annotate with `@RegisterForReflection` (or `@RegisterForReflection(targets = ...)` on a holder class for third-party types), or put a `reflection-config.json` in `src/main/resources` and set `quarkus.native.additional-build-args=-H:ReflectionConfigurationFiles=reflection-config.json` |
 | Missing resource files | `quarkus.native.resources.includes=templates/**` |
 | Library not supporting native | look for a Quarkus extension, or choose another library |
 | Class initialized at build time breaks | `--initialize-at-run-time=...` through `quarkus.native.additional-build-args` |

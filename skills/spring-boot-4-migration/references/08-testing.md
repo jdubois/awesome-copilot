@@ -53,8 +53,8 @@ class ControllerTest {
 }
 
 // New (Spring Boot 4.0)
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc
-import org.springframework.boot.test.autoconfigure.web.servlet.HtmlUnit
+import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc
+import org.springframework.boot.webmvc.test.autoconfigure.AutoConfigureMockMvc.HtmlUnit
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureMockMvc // Explicit annotation required
@@ -80,7 +80,7 @@ class WebFluxTest {
 }
 
 // New (Spring Boot 4.0)
-import org.springframework.boot.test.autoconfigure.web.reactive.AutoConfigureWebTestClient
+import org.springframework.boot.webtestclient.autoconfigure.AutoConfigureWebTestClient
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureWebTestClient // Explicit annotation required
@@ -96,8 +96,8 @@ class WebFluxTest {
 
 ```kotlin
 // Old approach (still works with annotation)
-import org.springframework.boot.test.autoconfigure.web.client.AutoConfigureTestRestTemplate
-import org.springframework.boot.test.web.client.TestRestTemplate
+import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureTestRestTemplate
+import org.springframework.boot.resttestclient.TestRestTemplate
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureTestRestTemplate // Required in 4.0
@@ -107,8 +107,8 @@ class RestApiTest {
 }
 
 // New recommended approach
-import org.springframework.boot.test.autoconfigure.web.client.AutoConfigureRestTestClient
-import org.springframework.boot.resttestclient.RestTestClient
+import org.springframework.boot.resttestclient.autoconfigure.AutoConfigureRestTestClient
+import org.springframework.test.web.servlet.client.RestTestClient
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @AutoConfigureRestTestClient // New annotation

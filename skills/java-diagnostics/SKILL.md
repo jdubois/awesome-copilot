@@ -11,8 +11,8 @@ Pick the lightest tool that answers the question, starting from the symptom.
 
 | Tier | Tools | Rule |
 |------|-------|------|
-| 1. Read-only | `jps`, `jcmd <pid> help/VM.version/VM.flags/Thread.print/GC.class_histogram`, `jstat`, `jstack`, reading logs | May run after stating the exact command. Note `GC.class_histogram` and `jmap -histo` run a full GC by default (it counts live objects only; pass `-all` to `jcmd GC.class_histogram` / use `jmap -histo:all` to skip), which causes a pause. |
-| 2. Recording / attach | JFR (`JFR.start`, `-XX:StartFlightRecording`), async-profiler, NMT (`-XX:NativeMemoryTracking`), enabling GC logs | Requires user consent. State duration and expected overhead (JFR default profile is about 1-2%; async-profiler depends on mode; NMT summary a few percent, detail more) before running. |
+| 1. Read-only | `jps`, `jcmd <pid> help/VM.version/VM.flags/Thread.print/GC.class_histogram`, `jstat`, `jstack`, reading logs | May run after stating the exact command. Exception: `jcmd GC.class_histogram` by default and `jmap -histo:live` trigger a full GC (live objects only), which pauses the JVM: on production get consent first, or use the non-GC forms `jcmd <pid> GC.class_histogram -all=true` / `jmap -histo` (these also count unreachable objects). |
+| 2. Recording / attach | JFR (`JFR.start`, `-XX:StartFlightRecording`), async-profiler, NMT (`-XX:NativeMemoryTracking`), enabling GC logs | Requires user consent. State duration and expected overhead (JFR default profile is about 1-2%; async-profiler depends on mode; NMT summary roughly 5-10%, detail more) before running. |
 | 3. Intrusive / sensitive | Heap dumps (`GC.heap_dump`, `jmap -dump`), `jhsdb`, JDWP with suspend, anything on production | Requires explicit consent, a stated target path, free-disk check (a dump is about the size of the used heap), and a stated pause. Heap dumps contain secrets (passwords, tokens, personal data). Never share or upload them; redaction is NOT a reliable safeguard. Analyze locally and delete afterwards. |
 
 Never run Tier 2 or Tier 3 commands against production unless the user explicitly instructs it. Run diagnostic tools as the same OS user as the target JVM. Prefer reproducing on dev or staging.
@@ -22,7 +22,7 @@ Never run Tier 2 or Tier 3 commands against production unless the user explicitl
 | Symptom | First step | Then | Reference |
 |---------|-----------|------|-----------|
 | High CPU | Thread dumps x3 (Tier 1) + `top -H` to map hot native thread ids to `nid` | JFR or async-profiler CPU flame graph (Tier 2) | [threads](references/thread-dumps.md), [jfr](references/jfr.md), [async-profiler](references/async-profiler.md) |
-| Memory leak / OOM | `jstat -gcutil`, `GC.class_histogram` twice, minutes apart (Tier 1) | Heap dump + Eclipse MAT (Tier 3) or JFR OldObjectSample (Tier 2) | [heap](references/heap.md), [gc](references/gc.md) |
+| Memory leak / OOM | `jstat -gcutil`, `GC.class_histogram -all=true` twice, minutes apart (Tier 1; without `-all=true` it forces a full GC, so get consent on production) | Heap dump + Eclipse MAT (Tier 3) or JFR OldObjectSample (Tier 2) | [heap](references/heap.md), [gc](references/gc.md) |
 | Slow startup | `-Xlog:class+load`, framework startup/condition reports, timestamped logs | JFR from start, async-profiler wall-clock | [jfr](references/jfr.md), [async-profiler](references/async-profiler.md) |
 | Deadlock / thread starvation | `jcmd <pid> Thread.print` (reports deadlocks), compare dumps over time | Virtual threads: `Thread.dump_to_file` | [threads](references/thread-dumps.md) |
 | GC pauses | GC log (`-Xlog:gc*`) and `jstat -gc` | JFR GC events; tune collector/heap | [gc](references/gc.md) |

@@ -4,7 +4,7 @@
 
 1. **Existing project:** read versions from `pom.xml` / `build.gradle(.kts)` (Spring Boot parent or plugin version, `java.version`/toolchain, `spring-boot-starter-test`). Keep them. Never bump implicitly.
 2. **New project:** resolve at run time, fall back to the table below only when offline.
-3. Never use `latest`, `LATEST` or `RELEASE` as a version, nor `curl | bash` installers.
+3. Never use `latest`, `LATEST` or `RELEASE` as a version, nor piped shell installers.
 
 ## Resolve the latest stable Spring Boot
 

@@ -53,4 +53,4 @@ Parameters are 1-based `line` and `character`, except `documentSymbol` (file onl
 
 ## Provenance
 
-Adapted from [jdubois/dr-jskill](https://github.com/jdubois/dr-jskill) (`references/JDTLS.md`, `assets/lsp.json`), Apache-2.0, read at commit `29e71996048e4086bfa389268a3c6c2e49ea3f25`. Reworked and condensed; no host-specific paths.
+Adapted from [jdubois/dr-jskill](https://github.com/jdubois/dr-jskill) (`references/JDTLS.md`, `assets/lsp.json`), read at commit `29e71996048e4086bfa389268a3c6c2e49ea3f25`. Contributed here by its original author (Julien Dubois, sole copyright holder of dr-jskill) under this repository's MIT license; it remains available upstream under Apache-2.0. Reworked and condensed; no host-specific paths.

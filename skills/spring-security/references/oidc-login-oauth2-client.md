@@ -27,7 +27,7 @@ http
 ```
 
 - Client id/secret come from environment variables or a secret store; never hard-code or print them.
-- Well-known providers (Google, GitHub, Okta) need only `client-id`/`client-secret`.
+- Common providers (Google, GitHub, Facebook) need only `client-id`/`client-secret`; Okta and other OIDC providers also need the `issuer-uri`.
 - Use `OidcClientInitiatedLogoutSuccessHandler` for RP-initiated logout.
 - Authorization Code with PKCE is the default for public clients; do not use the implicit or password grants.
 
@@ -37,7 +37,7 @@ Customize with a `GrantedAuthoritiesMapper` bean or an `OAuth2UserService`/`Oidc
 
 ## Calling other APIs (OAuth2 client)
 
-- Servlet apps: configure `OAuth2AuthorizedClientManager` and use `RestClient` with an `OAuth2ClientHttpRequestInterceptor`, or `WebClient` with `ServerOAuth2AuthorizedClientExchangeFilterFunction`.
+- Servlet apps: configure `OAuth2AuthorizedClientManager` and use `RestClient` with an `OAuth2ClientHttpRequestInterceptor`, or `WebClient` with `ServletOAuth2AuthorizedClientExchangeFilterFunction` (`ServerOAuth2AuthorizedClientExchangeFilterFunction` is for WebFlux only).
 - Service-to-service uses `authorization-grant-type: client_credentials`.
 - Check the Spring Security reference for the exact `RestClient` support available in your version.
 

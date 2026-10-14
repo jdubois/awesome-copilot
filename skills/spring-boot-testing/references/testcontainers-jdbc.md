@@ -89,10 +89,14 @@ class OrderRepositoryPostgresTest {
 ```
 
 ```java
+import org.testcontainers.mysql.MySQLContainer; // 2.x
+
 @Container
 @ServiceConnection
-static MySQLContainer<?> mysql = new MySQLContainer<>("mysql:8.4");
+static MySQLContainer mysql = new MySQLContainer("mysql:8.4");
 ```
+
+Testcontainers 1.x (Boot 3) variant: `org.testcontainers.containers.MySQLContainer<?> mysql = new MySQLContainer<>("mysql:8.4")` with the `mysql` artifact.
 
 ## Multiple Databases
 
@@ -250,6 +254,8 @@ class OrderServiceTest {
 ```
 
 ## Supported Databases
+
+Container classes (2.x) live in `org.testcontainers.<module>` and are non-generic (e.g. `org.testcontainers.mysql.MySQLContainer`).
 
 | Database | Container Class | Maven Artifact |
 | -------- | --------------- | -------------- |

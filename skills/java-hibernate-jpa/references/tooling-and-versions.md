@@ -55,7 +55,7 @@ Use `EXPLAIN (ANALYZE)` on the real database for slow SQL; indexes on foreign ke
 | Fetch-join duplicates | Need `DISTINCT` | Auto de-duplicated | Same as 6 |
 | Pagination + collection fetch warning | `HHH000104` | `HHH90003004` | Same as 6 |
 | Id generation | Legacy `hibernate.id.new_generator_mappings` | Sequence-first `AUTO`; `@GenericGenerator` deprecated from 6.5 | Prefer standard annotations and `@UuidGenerator`/`@IdGeneratorType` |
-| Metamodel generator | `hibernate-jpamodelgen` | `hibernate-processor` (6.3+, rename) | `hibernate-processor` |
+| Metamodel generator | `hibernate-jpamodelgen` | `hibernate-jpamodelgen` (`hibernate-processor` is the successor from 6.3) | `hibernate-processor` |
 | Hibernate Reactive/other | n/a | Separate artifacts | Separate artifacts |
 
 Migration notes (5 -> 6): fix `javax` -> `jakarta` imports (`javax-to-jakarta-migration` skill), review HQL for stricter parsing, re-check generated sequence names and `allocationSize`, re-check `@Type`/custom type usages and `AttributeConverter`s, `Query.getResultList` behavior and `@Where`/`@Filter` use. Read the official migration guides: <https://docs.hibernate.org/orm/6.0/migration-guide/> and the matching guide for 7. Hibernate 8 is in beta at the time of writing; do not assume its APIs.
@@ -64,6 +64,6 @@ Version-specific APIs mentioned elsewhere in this skill (entity-graph hint vs `s
 
 ## Tools
 
-- Metamodel/typed Criteria: `hibernate-processor`.
+- Metamodel/typed Criteria: `hibernate-jpamodelgen` for Hibernate 6 (`hibernate-processor` from 6.3 on), `hibernate-processor` for Hibernate 7.
 - Bytecode enhancement (lazy basic attributes, dirty tracking, lazy to-one inverse): Hibernate Maven/Gradle plugin; test carefully.
 - Validation: Jakarta Bean Validation integrates with persist/update and does not replace DB constraints.

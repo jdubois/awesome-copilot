@@ -25,7 +25,7 @@ The driver class is detected from the URL; do not set it. The defaults above are
 | `create` / `create-drop` | Recreates schema at startup (and drops at shutdown) | Throw-away tests |
 | `none` | Hibernate does nothing | Schema managed elsewhere |
 
-Hibernate's `update` is convenient but cannot rename, drop or migrate data. For production schema evolution, **Flyway or Liquibase are optional but recommended**: add `org.flywaydb:flyway-core` plus `flyway-database-postgresql` (or `liquibase-core`), put migrations in `src/main/resources/db/migration` (`V1__init.sql`), and set `ddl-auto=validate`. Only add them when the user wants versioned migrations.
+Hibernate's `update` is convenient but cannot rename, drop or migrate data. For production schema evolution, **Flyway or Liquibase are optional but recommended**: add the starter: on Boot 4 `spring-boot-starter-flyway` plus `org.flywaydb:flyway-database-postgresql` (or `spring-boot-starter-liquibase`), because Boot 4 auto-configuration lives in the starter; on Boot 3 add `org.flywaydb:flyway-core` plus `flyway-database-postgresql` (or `liquibase-core`) directly. Put migrations in `src/main/resources/db/migration` (`V1__init.sql`), and set `ddl-auto=validate`. Only add them when the user wants versioned migrations.
 
 ## Entities
 

@@ -46,6 +46,6 @@ quarkus create app --no-code -x rest-client-jackson,qute,mcp-server-sse your-dom
 ## Common Issues
 
 - Don't put business logic in MCP tools (use service layer)
-- Don't throw exceptions from tools (return error strings)
+- For expected business errors throw `io.quarkiverse.mcp.server.ToolCallException` (its message becomes a failed tool result); don't let other unhandled exceptions escape, as they are reported as generic internal errors
 - Don't forget to validate input parameters
 - Test with edge cases (null, empty inputs)

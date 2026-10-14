@@ -10,7 +10,7 @@ Find the root cause of a Java defect with a reproducible, hypothesis-driven loop
 ## Safety rules
 
 - Bind JDWP to loopback only (`127.0.0.1`). Never bind `*:5005` on a reachable network; use an SSH tunnel or `kubectl port-forward` for remote hosts.
-- Use `suspend=n`. Never use `suspend=y` or leave a debug agent enabled on production; JDWP gives full code execution to whoever connects.
+- Use `suspend=n` for running applications. `suspend=y` is acceptable only for short local test runs bound to loopback (waiting for the IDE to attach). Never leave a debug agent enabled on production; JDWP gives full code execution to whoever connects.
 - Do not attach a debugger to production without explicit user instruction. Prefer reproducing locally or use read-only diagnostics (see the `java-diagnostics` skill).
 - `JAVA_TOOL_OPTIONS` is picked up by every JVM started in that environment (build tools, forked test JVMs, child processes), causing `Address already in use` clashes. Prefer scoping the flag to the one process you want to debug.
 
@@ -44,7 +44,7 @@ Start the JVM:
 java -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=127.0.0.1:5005 -jar app.jar
 ```
 
-On JDK 8 and older the `host:port` form is not supported the same way (use `address=5005`, which listens on all interfaces), so restrict access with a firewall or tunnel.
+Always write the explicit `127.0.0.1:5005` on every JDK version: a bare `address=5005` listens on all interfaces before JDK 9 and only on loopback from JDK 9. On JDK 8 and older, the `host:port` form may not be honored, so also restrict access with a firewall or tunnel.
 
 Attach with `jdb`:
 
@@ -85,10 +85,18 @@ Run | Edit Configurations | + | Remote JVM Debug; host `127.0.0.1`, port `5005`,
 | Maven Failsafe IT | `mvn verify -Dmaven.failsafe.debug -Dit.test=OrderIT` |
 | Gradle test | `gradle test --debug-jvm --tests '*OrderServiceTest'` |
 | Spring Boot (Maven) | `mvn spring-boot:run -Dspring-boot.run.jvmArguments="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=127.0.0.1:5005"` |
-| Spring Boot (Gradle) | `gradle bootRun --debug-jvm` |
+| Spring Boot (Gradle) | `gradle bootRun --debug-jvm` (see the loopback form below), or `jvmArgs` with an explicit `127.0.0.1` agent |
 | Quarkus dev mode | `mvn quarkus:dev` (debug port 5005 open by default; `-Ddebug=5006` changes it, `-Ddebug=false` disables) |
 
-Surefire/Failsafe debug mode and `--debug-jvm` suspend until a debugger attaches, which is fine for a local run. Surefire and Failsafe accept a custom agent string instead of the bare flag, e.g. `-Dmaven.surefire.debug="-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=127.0.0.1:5005"`. Check which interface your Gradle version binds (`--debug-jvm` may listen on all interfaces); on shared networks prefer an explicit loopback agent via `jvmArgs`.
+Surefire/Failsafe debug mode and `--debug-jvm` suspend until a debugger attaches, which is fine for a local run. Surefire and Failsafe accept a custom agent string instead of the bare flag, e.g. `-Dmaven.surefire.debug="-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=127.0.0.1:5005"`. Check which interface your Gradle version binds (`--debug-jvm` may listen on all interfaces); on shared networks use an explicit loopback agent. Safe Gradle form (Gradle 5.6+; Kotlin DSL shown, for `test` or `bootRun`):
+
+```kotlin
+tasks.withType<Test> {
+    debugOptions { enabled.set(true); host.set("127.0.0.1"); port.set(5005); server.set(true); suspend.set(true) }
+}
+```
+
+Then run `gradle test --tests '*OrderServiceTest'`. Alternatively pass `jvmArgs("-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=127.0.0.1:5005")` to the task.
 
 ## Containers
 
@@ -99,7 +107,7 @@ docker run --rm -p 127.0.0.1:5005:5005 \
   -e JAVA_TOOL_OPTIONS="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005" my-app
 ```
 
-Inside the container the agent must bind `*` for the port mapping to work; safety comes from the `127.0.0.1:` host-side mapping. For Kubernetes use `kubectl port-forward pod/<name> 5005:5005` against a dev/staging pod only.
+Inside the container the agent must bind `*` for the port mapping to work; safety comes from the `127.0.0.1:` host-side mapping. Use this only on a developer machine with the default bridge network and no shared or user-defined networks that other containers can reach. For Kubernetes use `kubectl port-forward pod/<name> 5005:5005` against a dev/staging pod only.
 
 ## Common pitfalls
 
