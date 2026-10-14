@@ -1,28 +1,37 @@
-# Java Development Plugin
+# java-development
 
-Comprehensive collection of prompts and instructions for Java development including Spring Boot, Quarkus, testing, documentation, and best practices.
+Core Java skills for any Java project: JUnit, Javadoc, Hibernate/JPA, Testcontainers, debugging and JVM diagnostics, Java upgrades, Jakarta migration, GraalVM native image, refactoring and LSP setup.
 
 ## Installation
 
 ```bash
-# Using Copilot CLI
 copilot plugin install java-development@awesome-copilot
 ```
 
-## What's Included
+## Included skills
 
-### Commands (Slash Commands)
+| Skill | Details |
+|---|---|
+| `java-add-graalvm-native-image-support` | see `skills/java-add-graalvm-native-image-support/SKILL.md` |
+| `java-debugging` | see `skills/java-debugging/SKILL.md` |
+| `java-diagnostics` | see `skills/java-diagnostics/SKILL.md` |
+| `java-docs` | see `skills/java-docs/SKILL.md` |
+| `java-hibernate-jpa` | see `skills/java-hibernate-jpa/SKILL.md` |
+| `java-junit` | see `skills/java-junit/SKILL.md` |
+| `java-refactoring-extract-method` | see `skills/java-refactoring-extract-method/SKILL.md` |
+| `java-refactoring-remove-parameter` | see `skills/java-refactoring-remove-parameter/SKILL.md` |
+| `java-testcontainers` | see `skills/java-testcontainers/SKILL.md` |
+| `java-upgrade` | see `skills/java-upgrade/SKILL.md` |
+| `javax-to-jakarta-migration` | see `skills/javax-to-jakarta-migration/SKILL.md` |
+| `lsp-setup` | see `skills/lsp-setup/SKILL.md` |
 
-| Command | Description |
-|---------|-------------|
-| `/java-development:java-docs` | Ensure that Java types are documented with Javadoc comments and follow best practices for documentation. |
-| `/java-development:java-junit` | Get best practices for JUnit 5 unit testing, including data-driven tests |
-| `/java-development:java-springboot` | Get best practices for developing applications with Spring Boot. |
-| `/java-development:create-spring-boot-java-project` | Create Spring Boot Java Project Skeleton |
+## Migration note
+
+Version 2.0.0 contains core Java skills only. `create-spring-boot-java-project` and `java-springboot` moved to the `java-spring-boot` plugin.
 
 ## Source
 
-This plugin is part of [Awesome Copilot](https://github.com/github/awesome-copilot), a community-driven collection of GitHub Copilot extensions.
+Part of [Awesome Copilot](https://github.com/github/awesome-copilot).
 
 ## License
 
