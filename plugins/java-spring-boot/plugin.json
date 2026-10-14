@@ -22,6 +22,7 @@
         "./skills/create-spring-boot-java-project/",
         "./skills/java-add-graalvm-native-image-support/",
         "./skills/java-debugging/",
+        "./skills/java-development/",
         "./skills/java-diagnostics/",
         "./skills/java-hibernate-jpa/",
         "./skills/java-junit/",

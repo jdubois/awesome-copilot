@@ -15,6 +15,7 @@ copilot plugin install java-spring-boot@awesome-copilot
 | `create-spring-boot-java-project` | see `skills/create-spring-boot-java-project/SKILL.md` |
 | `java-add-graalvm-native-image-support` | see `skills/java-add-graalvm-native-image-support/SKILL.md` |
 | `java-debugging` | see `skills/java-debugging/SKILL.md` |
+| `java-development` | see `skills/java-development/SKILL.md` |
 | `java-diagnostics` | see `skills/java-diagnostics/SKILL.md` |
 | `java-hibernate-jpa` | see `skills/java-hibernate-jpa/SKILL.md` |
 | `java-junit` | see `skills/java-junit/SKILL.md` |
@@ -35,7 +36,8 @@ This plugin bundles the core Java skills it relies on, so `java-development` is 
 | Need | Skill |
 |---|---|
 | Create a new Spring Boot project | `create-spring-boot-java-project` |
-| Spring Boot coding rules | `java-springboot` |
+| Spring Boot application code (data, REST, messaging, caching, config, AOT) | `java-springboot` |
+| Everyday plain-Java work (build, dependencies, idioms, quality) | `java-development` |
 | JPA/Hibernate mapping, queries, schema management | `java-hibernate-jpa` |
 | Spring Boot tests (slices, Testcontainers) | `spring-boot-testing` |
 | Generic Testcontainers lifecycle and reuse | `java-testcontainers` |

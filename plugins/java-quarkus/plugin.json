@@ -21,6 +21,7 @@
         "./skills/create-quarkus-project/",
         "./skills/java-add-graalvm-native-image-support/",
         "./skills/java-debugging/",
+        "./skills/java-development/",
         "./skills/java-diagnostics/",
         "./skills/java-hibernate-jpa/",
         "./skills/java-junit/",
@@ -28,6 +29,7 @@
         "./skills/java-upgrade/",
         "./skills/javax-to-jakarta-migration/",
         "./skills/lsp-setup/",
+        "./skills/quarkus-application-development/",
         "./skills/quarkus-dev-services-and-testing/",
         "./skills/quarkus-native-and-container/"
       ]

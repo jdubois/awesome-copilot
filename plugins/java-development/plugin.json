@@ -23,6 +23,7 @@
       "skills": [
         "./skills/java-add-graalvm-native-image-support/",
         "./skills/java-debugging/",
+        "./skills/java-development/",
         "./skills/java-diagnostics/",
         "./skills/java-docs/",
         "./skills/java-hibernate-jpa/",

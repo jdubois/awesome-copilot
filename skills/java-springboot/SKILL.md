@@ -1,57 +1,55 @@
 ---
 name: java-springboot
-description: 'Get on-demand best practices for developing Spring Boot applications: web, service and data layers, with pointers to detailed references for configuration, database, logging, security and testing.'
+description: 'Write and review application code in an existing Spring Boot 3/4 project: controllers, validation and ProblemDetail errors, Spring Data JPA/JDBC, RestClient and HTTP interfaces, configuration properties, Kafka/AMQP, caching, scheduling, virtual threads, AOT and startup tuning. Use when adding or changing features. To scaffold a new project use create-spring-boot-java-project instead.'
 ---
 
-# Spring Boot Best Practices
+# Spring Boot application development
 
-Your goal is to help me write high-quality Spring Boot applications by following established best practices.
+Opinionated rules plus a router to deeper references. Code samples in the references were compiled and run on Spring Boot 4.1.1 (Spring Framework 7) and, where they differ, on Boot 3.5.16 (Framework 6.2). Boot 3 vs 4 differences are marked "Boot 3" / "Boot 4" in each reference.
 
-## Project Setup & Structure
+## Before writing code
 
-- **Build Tool:** Use Maven (`pom.xml`) or Gradle (`build.gradle(.kts)`), whichever the project already uses for dependency management.
-- **Starters:** Use Spring Boot starters (e.g., `spring-boot-starter-web` on Boot 3, `spring-boot-starter-webmvc` on Boot 4; `spring-boot-starter-data-jpa`) to simplify dependency management.
-- **Package Structure:** Organize code by feature/domain (e.g., `com.example.app.order`, `com.example.app.user`) rather than by layer (e.g., `com.example.app.controller`, `com.example.app.service`).
+1. **Detect, do not assume:** read `pom.xml`/`build.gradle(.kts)` for the Spring Boot version, Java version, starters in use (`spring-boot-starter-web` is Boot 3, `spring-boot-starter-webmvc` is Boot 4), persistence (JPA, JDBC), the migration tool, the test setup, and the package layout and naming conventions of the existing code. Match them.
+2. **Never upgrade Spring Boot, Java or dependencies implicitly.** A Boot 3 -> 4 move is a deliberate task (`spring-boot-4-migration`).
+3. **Ask before adding infrastructure:** a broker (Kafka, RabbitMQ), a cache provider, a new database, or a scheduler/async setup. Add only what the user requested, with the Boot-managed version (no explicit version for BOM-managed artifacts, never `latest`).
+4. **Verify every change** with the project's own build: `./mvnw verify` or `./gradlew build` (plain `mvn`/`gradle` if no wrapper). Integration tests need Docker when they use Testcontainers.
 
-## Core Rules
+## Router
 
-- **Dependency injection:** use constructor injection (single constructor, `final` fields); avoid field injection.
-- **Configuration:** use `application.yml`/`.properties` with profiles, bind typed settings with `@ConfigurationProperties`, and externalize secrets (environment variables or a secret store, never committed).
-- **Logging:** use SLF4J with parameterized messages (`log.info("Order {} created", id)`), never string concatenation; never log secrets or personal data.
+| Task | Read |
+| --- | --- |
+| Repositories, projections, pagination, N+1, `@Transactional`, auditing, Flyway/Liquibase, Spring Data JDBC | `references/data.md` |
+| Controllers, validation, `ProblemDetail`, `RestClient`, `@HttpExchange`, API versioning, OpenAPI, JSpecify | `references/rest-api.md` |
+| Kafka/AMQP, `@Cacheable`/Caffeine, `@Scheduled`, `@Async`, virtual threads, outbox | `references/messaging-caching.md` |
+| `@ConfigurationProperties`, profiles, secrets, config import, Docker Compose / Testcontainers at dev time | `references/configuration.md` |
+| AOT, CDS/AppCDS, lazy initialization, native image | `references/aot-and-startup.md` |
+| JPA mapping problems (equals/hashCode, cascades, locking, batching) | skill `java-hibernate-jpa` |
+| Tests (slices, `@MockitoBean`, Testcontainers, Failsafe) | skill `spring-boot-testing` |
+| Authentication, authorization, OAuth2/JWT, CSRF/CORS | skill `spring-security` |
+| Metrics, tracing, Actuator exposure, log correlation | skill `spring-observability` |
+| Project defaults (PostgreSQL, logging, Docker, versions) and Boot 3 vs 4 build changes | skill `create-spring-boot-java-project` (its `references/`) |
+| Native executable | skill `java-add-graalvm-native-image-support` |
 
-The rules in this file are self-contained. If the `create-spring-boot-java-project` skill is installed, deeper guidance lives in its references: `references/configuration.md` (profiles, `@ConfigurationProperties`, secrets), `references/database.md` (PostgreSQL, Hibernate, Flyway/Liquibase), `references/logging.md`, `references/security.md` and `references/spring-boot-4.md` (Boot 3 vs 4 differences). The always-on `springboot` instruction file covers the same rules.
+## Core rules
 
-## Web Layer (Controllers)
+- **Structure:** package by feature (`com.example.app.order`), not by layer. Constructor injection (single constructor, `final` fields); no field injection.
+- **Layers:** controllers translate HTTP and call services; services hold business logic and own the transaction (`@Transactional`); repositories do persistence only. Return DTOs/records from controllers, never entities.
+- **Validation:** Bean Validation annotations (`jakarta.validation.constraints.*`: `@NotNull`, `@NotBlank`, `@Size`, `@Positive`) on request records with `@Valid` on the parameter. Do not confuse them with JSpecify (`org.jspecify.annotations.@Nullable`/`@NullMarked`), which documents nullability for tools and does not validate at runtime.
+- **Errors:** one `@RestControllerAdvice` returning `ProblemDetail` (RFC 9457); never leak stack traces or entity internals.
+- **Configuration:** typed `@ConfigurationProperties` records, profiles for environment differences, secrets from the environment or a secret store, never committed.
+- **Jackson:** Boot 4 uses Jackson 3 (`tools.jackson.databind.*`, `JsonMapper`; annotations stay in `com.fasterxml.jackson.annotation`); Boot 3 uses Jackson 2 (`com.fasterxml.jackson.databind.*`, `ObjectMapper`).
+- **Logging:** SLF4J parameterized messages, no secrets or personal data (see `create-spring-boot-java-project` `references/logging.md`).
+- **Slice-test gotcha:** put `@EnableJpaAuditing`, `@EnableCaching`, `@EnableAsync`, `@EnableScheduling` on dedicated `@Configuration` classes, not on the `@SpringBootApplication` class, or slices such as `@DataJpaTest` fail to start (for example, no `CacheManager`). Slices do not scan `@Configuration` classes: `@Import` the one a test needs (for example auditing).
+- **Proxied beans:** `@Cacheable`, `@Async`, `@Transactional` and `@Scheduled` work through proxies: they do nothing on self-invocation or on `private`/`final` methods; test them through the injected bean.
 
-- **RESTful APIs:** Design clear and consistent RESTful endpoints.
-- **DTOs (Data Transfer Objects):** Use DTOs to expose and consume data in the API layer. Do not expose JPA entities directly to the client.
-- **Validation:** Use Java Bean Validation (JSR 380) with annotations (`@Valid`, `@NotNull`, `@Size`) on DTOs to validate request payloads.
-- **Error Handling:** Implement a global exception handler using `@ControllerAdvice` and `@ExceptionHandler` to provide consistent error responses.
+## Agent checklist
 
-## Service Layer
+- [ ] Detected Boot/Java versions, build tool, existing conventions
+- [ ] Used only starters and test starters that match the Boot major
+- [ ] No new infrastructure or dependency without the user's agreement
+- [ ] DTOs at the API boundary, `ProblemDetail` for errors, validation on input
+- [ ] Schema changes follow the schema management rule of `java-hibernate-jpa` (Flyway/Liquibase for production)
+- [ ] `./mvnw verify` / `./gradlew build` passes; tests added at the right level
+- [ ] Secrets absent from code, properties and logs
 
-- **Business Logic:** Encapsulate all business logic within `@Service` classes.
-- **Statelessness:** Services should be stateless.
-- **Transaction Management:** Use `@Transactional` on service methods to manage database transactions declaratively. Apply it at the most granular level necessary.
-
-## Data Layer (Repositories)
-
-- **Spring Data JPA:** Use Spring Data JPA repositories by extending `JpaRepository` or `CrudRepository` for standard database operations.
-- **Custom Queries:** For complex queries, use `@Query` or the JPA Criteria API.
-- **Projections:** Use DTO projections to fetch only the necessary data from the database.
-
-## Testing
-
-- Use the `spring-boot-testing` skill for slices (`@WebMvcTest`, `@DataJpaTest`), Testcontainers with `@ServiceConnection`, the Failsafe `*IT` gotcha, and Boot 3 vs 4 / JUnit 5 vs 6 compatibility.
-- Plain JUnit + Mockito for services; `@SpringBootTest` only for real integration tests.
-
-## Security
-
-- Use Spring Security; always hash passwords (BCrypt or the delegating encoder) and use parameterized queries.
-- For authentication, authorization, OAuth2/JWT, method security, CSRF/CORS: use the `spring-security` skill. Basics when scaffolding: `references/security.md` in the `create-spring-boot-java-project` skill.
-
-## Observability
-
-- Expose Actuator `health`/`info` only by default; for metrics, tracing and log correlation (Micrometer, OpenTelemetry) use the `spring-observability` skill.
-
-See also: Actuator <https://docs.spring.io/spring-boot/reference/actuator/index.html>, testing <https://docs.spring.io/spring-boot/reference/testing/index.html>, upgrading <https://docs.spring.io/spring-boot/upgrading.html> (for a Boot 4 move use `spring-boot-4-migration`).
+See also: Spring Boot reference <https://docs.spring.io/spring-boot/reference/>, Spring Framework reference <https://docs.spring.io/spring-framework/reference/>, Spring Data <https://docs.spring.io/spring-data/commons/reference/>.

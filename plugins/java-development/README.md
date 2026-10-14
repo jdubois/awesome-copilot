@@ -14,6 +14,7 @@ copilot plugin install java-development@awesome-copilot
 |---|---|
 | `java-add-graalvm-native-image-support` | see `skills/java-add-graalvm-native-image-support/SKILL.md` |
 | `java-debugging` | see `skills/java-debugging/SKILL.md` |
+| `java-development` | see `skills/java-development/SKILL.md` |
 | `java-diagnostics` | see `skills/java-diagnostics/SKILL.md` |
 | `java-docs` | see `skills/java-docs/SKILL.md` |
 | `java-hibernate-jpa` | see `skills/java-hibernate-jpa/SKILL.md` |
@@ -29,6 +30,7 @@ copilot plugin install java-development@awesome-copilot
 
 | Need | Skill |
 |---|---|
+| Everyday plain-Java work (build, dependencies, modern idioms, logging, quality, packaging, CI) | `java-development` |
 | Write or fix JUnit tests | `java-junit` |
 | Javadoc | `java-docs` |
 | JPA/Hibernate mapping, queries, schema management | `java-hibernate-jpa` |

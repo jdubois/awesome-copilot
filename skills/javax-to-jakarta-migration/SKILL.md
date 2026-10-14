@@ -16,6 +16,9 @@ In Spring Boot projects, the Boot BOM manages Jakarta versions: do not pin the v
 
 ## Procedure
 
+### Step 0 — Baseline
+Run `./mvnw verify` or `./gradlew build` first and record the result; do not migrate on a red baseline. Make the change in a dedicated commit/step.
+
 ### Step 1 — Scan for javax Usage
 Search the codebase for all `javax.*` imports that need migration:
 ```
@@ -61,7 +64,7 @@ Replace dependency coordinates:
 ```
 
 ### Step 4 — Update Java Source Files
-Replace all `javax.` imports with `jakarta.` equivalents in `.java` files.
+Replace all `javax.` imports with `jakarta.` equivalents in `.java` files. Also check non-Java references: `persistence.xml` (`javax.persistence.*` properties), `META-INF/services`, `beans.xml`, properties/YAML, string class names and reflection.
 
 ### Step 5 — Verify
 1. Run `mvn clean compile` or `gradlew build` — fix any compilation errors
