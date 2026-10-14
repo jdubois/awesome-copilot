@@ -681,7 +681,7 @@ Use `/diagnose` when a session is behaving unexpectedly — it inspects session 
 
 **Voice dictation**: Press **Ctrl+Space** to toggle voice dictation on or off, letting you speak a prompt instead of typing it.
 
-The `/ask` command lets you ask a quick question without affecting your conversation history. The current session context is preserved, so you can use it for one-off lookups without derailing an ongoing task. Responses are rendered as full markdown, including tables and formatted links:
+The `/ask` command lets you ask a quick question without affecting your conversation history. The current session context is preserved, so you can use it for one-off lookups without derailing an ongoing task. Responses are rendered as full markdown, including tables and formatted links. Press **Ctrl+E** to expand an answer, **Ctrl+Y** to copy the entire answer, and run `/ask` or `/btw` again to reopen the last completed answer in the session:
 
 ```
 /ask What does the `retry` utility in src/utils do?

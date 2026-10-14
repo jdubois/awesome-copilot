@@ -645,6 +645,7 @@ echo "Pre-commit checks passed ✅"
 - **Document setup requirements**: If hooks depend on tools being installed (Prettier, ESLint), document this in the README.
 - **Test locally first**: Run hook scripts manually before relying on them in agent sessions.
 - **Layer hooks, don't overload**: Use multiple hook entries for independent checks rather than one monolithic script.
+- **Scope hooks to a custom agent when they only apply to it**: Custom agents can declare their own hooks, so checks that matter for one agent (for example, extra validation for a deployment agent) don't run for every session. See [Building Custom Agents](../building-custom-agents/) for agent definitions.
 
 ## Compatibility and Migration Notes
 
