@@ -1,6 +1,6 @@
 # OAuth2 resource server with JWT
 
-Dependency: `spring-boot-starter-oauth2-resource-server`.
+Dependency: `spring-boot-starter-oauth2-resource-server` (Boot 3.x) or `spring-boot-starter-security-oauth2-resource-server` (Boot 4.x; test companion `spring-boot-starter-security-oauth2-resource-server-test`).
 
 ## Minimal configuration
 

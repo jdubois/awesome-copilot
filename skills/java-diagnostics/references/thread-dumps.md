@@ -31,7 +31,7 @@ jcmd <pid> Thread.dump_to_file -format=json threads.json
 jcmd <pid> Thread.dump_to_file threads.txt
 ```
 
-Pinned virtual threads (blocked inside `synchronized` on older JDKs, or native frames) can be investigated with the JFR event `jdk.VirtualThreadPinned` (see [jfr](jfr.md)); `-Djdk.tracePinnedThreads=full` was a debug option on JDK 21-23 and is not available on newer releases, so verify it against your JDK.
+`Thread.print` shows only platform threads (virtual threads were verified missing on JDK 27, present in `Thread.dump_to_file`). Pinned virtual threads (blocked inside `synchronized` on JDK 21-23, or native frames on any version) can be investigated with the JFR event `jdk.VirtualThreadPinned` (see [jfr](jfr.md)). `-Djdk.tracePinnedThreads=full` works only on JDK 21-23; JEP 491 removed it in JDK 24, where setting it is silently ignored.
 
 ## Reading tips
 

@@ -66,8 +66,8 @@ Rules of thumb:
 
 ## Dependencies (pin through the Boot BOM, no explicit versions)
 
-- `spring-boot-starter-security`, plus `spring-boot-starter-oauth2-resource-server` or `spring-boot-starter-oauth2-client` as needed.
-- Tests: add `spring-security-test` (test scope) on Boot 3.x; on Boot 4.x use `spring-boot-starter-security-test` together with modular test starters such as `spring-boot-starter-webmvc-test`.
+- `spring-boot-starter-security`, plus `spring-boot-starter-oauth2-resource-server` or `spring-boot-starter-oauth2-client` on Boot 3.x. Boot 4.x names: `spring-boot-starter-security-oauth2-resource-server` / `spring-boot-starter-security-oauth2-client` (the old names remain as deprecated aliases).
+- Tests: add `spring-security-test` (test scope) on Boot 3.x; on Boot 4.x use `spring-boot-starter-security-test` (plus `spring-boot-starter-security-oauth2-resource-server-test` / `-client-test` when those starters are used) together with modular test starters such as `spring-boot-starter-webmvc-test`.
 
 ## Verify
 

@@ -64,6 +64,7 @@ Version-specific APIs mentioned elsewhere in this skill (entity-graph hint vs `s
 
 ## Tools
 
-- Metamodel/typed Criteria: `hibernate-jpamodelgen` for Hibernate 6 (`hibernate-processor` from 6.3 on), `hibernate-processor` for Hibernate 7.
+- Metamodel/typed Criteria: `hibernate-jpamodelgen` for Hibernate 6 (`hibernate-processor` from 6.3 on), `hibernate-processor` for Hibernate 7 (`org.hibernate.orm:hibernate-processor`, `provided`/annotation-processor scope; `hibernate-jpamodelgen` 7.x is only a Maven relocation to it).
+- JDK 23+ no longer runs annotation processors found only on the classpath: with a plain `provided` dependency `Entity_` classes are not generated. Set `<proc>full</proc>` on `maven-compiler-plugin` (or list the processor in `annotationProcessorPaths`; Gradle: `annotationProcessor`).
 - Bytecode enhancement (lazy basic attributes, dirty tracking, lazy to-one inverse): Hibernate Maven/Gradle plugin; test carefully.
 - Validation: Jakarta Bean Validation integrates with persist/update and does not replace DB constraints.

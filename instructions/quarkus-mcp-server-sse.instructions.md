@@ -4,21 +4,21 @@ description: 'Quarkus and MCP Server with HTTP SSE transport development standar
 ---
 # Quarkus MCP Server
 
-Apply these instructions only when the project uses Quarkus with the `mcp-server-sse` extension.
+Apply these instructions only when the project uses a Quarkus MCP Server extension (`mcp-server-http`, or the legacy `mcp-server-sse`).
 
 Build MCP servers with Java 21, Quarkus, and HTTP SSE transport.
 
 ## Stack
 
 - Java 21 with Quarkus Framework
-- MCP Server Extension: `mcp-server-sse`
+- MCP Server Extension: `mcp-server-http` (`io.quarkiverse.mcp:quarkus-mcp-server-http`), which serves both transports: legacy HTTP/SSE at `http://localhost:8080/mcp/sse` and Streamable HTTP (preferred; SSE is deprecated in the MCP spec) at `http://localhost:8080/mcp`
+- `mcp-server-sse` is not managed by recent Quarkus platform BOMs (verified: absent from 3.40.1); the Quarkus CLI silently falls back to an older platform stream when asked for it. Use it only to keep an existing project that already depends on it.
 - CDI for dependency injection
-- MCP Endpoint: `http://localhost:8080/mcp/sse`
 
 ## Quick Start
 
 ```bash
-quarkus create app --no-code -x rest-client-jackson,qute,mcp-server-sse your-domain-mcp-server
+quarkus create app --no-code -x rest-client-jackson,qute,mcp-server-http your-domain-mcp-server
 ```
 
 ## Structure
@@ -39,7 +39,7 @@ quarkus create app --no-code -x rest-client-jackson,qute,mcp-server-sse your-dom
 ## Architecture
 
 - Separate concerns: MCP tools → Service layer → Repository
-- Use `@Inject` for dependency injection
+- Use constructor injection (`@Inject` is optional on a single constructor)
 - Make data operations thread-safe
 - Use `Optional<T>` to avoid null pointer exceptions
 

@@ -88,7 +88,7 @@ Run | Edit Configurations | + | Remote JVM Debug; host `127.0.0.1`, port `5005`,
 | Spring Boot (Gradle) | `gradle bootRun --debug-jvm` (see the loopback form below), or `jvmArgs` with an explicit `127.0.0.1` agent |
 | Quarkus dev mode | `mvn quarkus:dev` (debug port 5005 open by default; `-Ddebug=5006` changes it, `-Ddebug=false` disables) |
 
-Surefire/Failsafe debug mode and `--debug-jvm` suspend until a debugger attaches, which is fine for a local run. Surefire and Failsafe accept a custom agent string instead of the bare flag, e.g. `-Dmaven.surefire.debug="-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=127.0.0.1:5005"`. Check which interface your Gradle version binds (`--debug-jvm` may listen on all interfaces); on shared networks use an explicit loopback agent. Safe Gradle form (Gradle 5.6+; Kotlin DSL shown, for `test` or `bootRun`):
+Surefire/Failsafe debug mode and `--debug-jvm` suspend until a debugger attaches, which is fine for a local run. Surefire and Failsafe accept a custom agent string instead of the bare flag, e.g. `-Dmaven.surefire.debug="-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=127.0.0.1:5005"`. Verified listeners on `127.0.0.1` (via `lsof -nP -iTCP:5005 -sTCP:LISTEN`) for Gradle 9.7 `--debug-jvm`, Maven Surefire 3.5 `-Dmaven.surefire.debug` and Quarkus 3.40 dev mode on JDK 26; older Gradle/plugin versions were not tested, so run the same `lsof` check and use an explicit loopback agent on shared networks. Safe Gradle form (Gradle 5.6+; Kotlin DSL shown, for `test` or `bootRun`):
 
 ```kotlin
 tasks.withType<Test> {

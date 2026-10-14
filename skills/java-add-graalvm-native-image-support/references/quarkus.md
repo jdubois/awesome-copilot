@@ -5,7 +5,7 @@ For Quarkus projects use the companion skill `skills/quarkus-native-and-containe
 Quick facts, framework-agnostic bits only:
 
 - Native support is built into Quarkus; do not add the Native Build Tools plugin.
-- Build: `./mvnw package -Dnative` (Maven) or `./gradlew build -Dquarkus.native.enabled=true` (Gradle, Quarkus 3.10+; older versions use `-Dquarkus.package.type=native`). Add `-Dquarkus.native.container-build=true` to build in a container when no local GraalVM/Mandrel is installed.
+- Build: `./mvnw package -Dnative` (Maven) or `./gradlew build -Dquarkus.native.enabled=true` (Gradle, Quarkus 3.10+; older versions use `-Dquarkus.package.type=native`). Add `-Dquarkus.native.container-build=true` to build in a container when no local GraalVM/Mandrel is installed (verified on 3.40.1 with Docker; on macOS/Windows the result is a Linux binary, so run it in a Linux container and expect `verify -Dnative` ITs to fail with exit code 126). Gradle also needs `-Dquarkus.package.jar.enabled=false`.
 - Reflection: `@RegisterForReflection` on the class or on a holder class with `targets`; or a `reflection-config.json` in `src/main/resources` referenced via `quarkus.native.additional-build-args=-H:ReflectionConfigurationFiles=reflection-config.json`.
 - Resources: `quarkus.native.resources.includes` / `excludes` in `application.properties`.
 - Extra Native Image flags: `quarkus.native.additional-build-args`, with several flags comma-separated in one property (repeating the property overwrites the earlier one).

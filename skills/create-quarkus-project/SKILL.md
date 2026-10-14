@@ -8,12 +8,12 @@ description: 'Create a new Quarkus project (Maven or Gradle) with the Quarkus CL
 ## 1. Detect the environment
 
 ```bash
-java -version          # Java 21+ recommended, 17 minimum
+java -version          # Java 17, 21 or 25 (Quarkus 3.40 recommends 25, 3.27 recommends 21)
 quarkus --version      # optional Quarkus CLI
 ./mvnw -v || mvn -v    # or ./gradlew -v
 ```
 
-If the folder already contains a Quarkus project (`io.quarkus.platform` BOM, `quarkus-maven-plugin`, or `io.quarkus` Gradle plugin), do NOT scaffold: read its Quarkus version and keep it. For a new project, use the latest 3.x LTS stream (check https://quarkus.io/support/); do not invent a patch version, let the tool pick the current one.
+If the folder already contains a Quarkus project (`io.quarkus.platform` BOM, `quarkus-maven-plugin`, or `io.quarkus` Gradle plugin), do NOT scaffold: read its Quarkus version and keep it. For a new project, use the stream marked recommended on https://code.quarkus.io/api/streams (an LTS stream; see also https://quarkus.io/support/), and do not invent a patch version: let the tool pick it. Quarkus 4.0 is still a beta, so do not use it unless asked. If an extension is missing from the recommended stream, the CLI silently picks an older stream; check `quarkus.platform.version` in the generated build file.
 
 ## 2. Scaffold (pick one)
 
@@ -30,7 +30,8 @@ No CLI: Maven plugin (pin the version to the current release from https://quarku
 ```bash
 mvn io.quarkus.platform:quarkus-maven-plugin:${quarkus.version}:create \
   -DprojectGroupId=com.example -DprojectArtifactId=demo \
-  -Dextensions='rest-jackson,hibernate-orm-panache,jdbc-postgresql'
+  -Dextensions='rest-jackson,hibernate-orm-panache,jdbc-postgresql' \
+  -DbuildTool=maven        # or gradle
 ```
 
 Or generate from the https://code.quarkus.io web UI / REST API (`https://code.quarkus.io/d?g=com.example&a=demo&e=rest-jackson&b=MAVEN`) and unzip.
@@ -63,7 +64,7 @@ src/test/java/...          # @QuarkusTest / @QuarkusIntegrationTest
 ./mvnw quarkus:dev         # or: quarkus dev / ./gradlew quarkusDev
 ```
 
-Dev mode gives live reload, Dev UI at http://localhost:8080/q/dev-ui, Dev Services (auto containers), and continuous testing (press `r`). Package: `./mvnw package` (runnable `target/quarkus-app/quarkus-run.jar`).
+Generated tests include a `*IT` class that Maven skips by default (`<skipITs>true</skipITs>` in the template); run it with `./mvnw verify -DskipITs=false` or `-Dnative`. Dev mode gives live reload, Dev UI at http://localhost:8080/q/dev-ui, Dev Services (auto containers), and continuous testing (press `r`). Package: `./mvnw package` (runnable `target/quarkus-app/quarkus-run.jar`).
 
 ## Conventions for generated code
 
@@ -77,5 +78,7 @@ Dev mode gives live reload, Dev UI at http://localhost:8080/q/dev-ui, Dev Servic
 - [Security basics](references/security.md)
 - [Container images](references/container-image.md)
 - [Local runtime insights (BootUI)](references/local-runtime-insights.md)
+
+Verified (scaffold, `./mvnw verify`, `./gradlew build`, dev mode, Dev Services PostgreSQL, JDK 26 with Java 25 release) on Quarkus 3.40.1 (current recommended LTS stream) and `./mvnw verify` on 3.27.6 (older LTS).
 
 Related skills: `quarkus-dev-services-and-testing`, `quarkus-native-and-container`.

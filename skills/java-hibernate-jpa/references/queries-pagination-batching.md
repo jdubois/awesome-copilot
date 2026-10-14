@@ -97,7 +97,7 @@ Entities referenced after `clear()` are detached; reload or use `getReference`.
 
 - Bind parameters; never concatenate user input into JPQL/native SQL.
 - `IN` lists: large lists blow up the SQL cache; Hibernate pads parameters with `hibernate.query.in_clause_parameter_padding=true`, and databases cap parameter counts, so chunk (e.g. 500-1000).
-- Set `hibernate.query.fail_on_pagination_over_collection_fetch=true` (Hibernate 5.2.13+/6) to turn the in-memory pagination warning into an exception during development.
+- Set `hibernate.query.fail_on_pagination_over_collection_fetch=true` (setting exists in 7.4; in a quick test with a plain `join fetch` + `setMaxResults` it did not throw, so do not rely on it: watch for the warning in the log instead).
 - `@QueryHints(readOnly)`/`setHint("org.hibernate.readOnly", true)` for read paths that load entities but never modify them.
 - Prefer JPQL/HQL or Criteria for portability; use native SQL for database-specific features (window functions, `SKIP LOCKED`, upserts), mapped to DTOs.
 - `existsBy`-style checks: `select 1 ... fetch first 1 rows only` / `count(*) > 0` instead of loading entities.

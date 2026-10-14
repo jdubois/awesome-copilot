@@ -1,6 +1,6 @@
 # OIDC login and OAuth2 client
 
-Dependency: `spring-boot-starter-oauth2-client`.
+Dependency: `spring-boot-starter-oauth2-client` (Boot 3.x) or `spring-boot-starter-security-oauth2-client` (Boot 4.x; test companion `spring-boot-starter-security-oauth2-client-test`).
 
 ## Login with an OIDC provider
 

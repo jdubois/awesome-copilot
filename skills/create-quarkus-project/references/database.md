@@ -12,6 +12,8 @@ quarkus.datasource.db-kind=postgresql
 %dev.quarkus.datasource.devservices.reuse=true
 ```
 
+Without `image-name`, 3.40 starts `postgres:18`; pin the image to match production. `reuse` only takes effect when the Testcontainers user file `~/.testcontainers.properties` contains `testcontainers.reuse.enable=true` (otherwise Quarkus logs "Reuse was requested but the environment does not support the reuse of containers").
+
 Production settings go in `%prod.`:
 
 ```properties
@@ -27,7 +29,7 @@ Production settings go in `%prod.`:
 %prod.quarkus.hibernate-orm.schema-management.strategy=none
 ```
 
-(Older 3.x releases name this `quarkus.hibernate-orm.database.generation`; check the Hibernate ORM guide for the project's version.)
+(`quarkus.hibernate-orm.database.generation` is the deprecated old name: 3.40 logs a deprecation warning for it. `schema-management.strategy` was verified on 3.27.6 and 3.40.1; for older releases check the Hibernate ORM guide.)
 
 Panache repository:
 

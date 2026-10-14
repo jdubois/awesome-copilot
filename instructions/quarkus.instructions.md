@@ -4,7 +4,7 @@ description: 'Quarkus development standards and instructions'
 ---
 
 - Apply these instructions only when the project uses Quarkus (`io.quarkus` dependencies or the Quarkus Maven/Gradle plugin).
-- Check the project's existing Quarkus and Java versions (pom.xml, build.gradle, `quarkus.platform.version`) before suggesting changes; keep them unless asked to upgrade. For new projects target the latest 3.x LTS release (see https://quarkus.io/support/) and Java 21+ (Java 17 minimum). Never hard-code a patch version in advice; use the Quarkus BOM.
+- Check the project's existing Quarkus and Java versions (pom.xml, build.gradle, `quarkus.platform.version`) before suggesting changes; keep them unless asked to upgrade. For new projects target the recommended stream from https://code.quarkus.io/api/streams (3.40 at the time of testing; 4.0 is still beta) and Java 21+ (Java 17 minimum). Never hard-code a patch version in advice; use the Quarkus BOM.
 
 ## Dependencies and build
 
@@ -41,7 +41,7 @@ description: 'Quarkus development standards and instructions'
 
 - Use `@QuarkusTest` with RestAssured for application tests, `@QuarkusIntegrationTest` for packaged jar/native/container tests, and `@InjectMock` for CDI mocks.
 - Use Dev Services and `QuarkusTestResourceLifecycleManager` for external dependencies; use continuous testing in dev mode.
-- Run `*IT` tests with `./mvnw verify` (Failsafe), not `test`.
+- Run `*IT` tests with `./mvnw verify -DskipITs=false` (Failsafe; the generated pom sets `skipITs=true`), not `test`. Test artifacts are `quarkus-junit` (3.31+) or `quarkus-junit5` (older); keep what the project uses.
 
 ## Avoid
 

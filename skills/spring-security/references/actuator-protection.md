@@ -3,7 +3,7 @@
 Actuator endpoints can leak configuration, environment, heap contents, and allow shutdown. Treat them as admin surface.
 
 - Expose the minimum: `management.endpoints.web.exposure.include=health,info` (add `prometheus`/`metrics` only for the scraper).
-- Use `EndpointRequest` for rules:
+- Use `EndpointRequest` for rules (import: Boot 3.x `org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest`; Boot 4.x `org.springframework.boot.security.autoconfigure.actuate.web.servlet.EndpointRequest`; both verified to compile):
 
 ```java
 @Bean

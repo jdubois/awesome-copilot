@@ -1654,7 +1654,7 @@
     {
       "name": "openapi-to-application-java-spring-boot",
       "source": "plugins/openapi-to-application-java-spring-boot",
-      "description": "Generate production-ready Spring Boot applications from OpenAPI specifications. Includes project scaffolding, REST controller generation, service layer organization, and Spring Boot best practices.",
+      "description": "Generate Spring Boot (Java) applications from OpenAPI specifications, spec-first with openapi-generator. Bundles project scaffolding, Spring Boot best practices, security and testing skills.",
       "version": "1.0.0"
     },
     {

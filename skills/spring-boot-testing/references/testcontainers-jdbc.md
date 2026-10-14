@@ -78,6 +78,8 @@ class OrderRepositoryPostgresTest {
 }
 ```
 
+Note: `Order` is a reserved word in SQL; an entity named `Order` needs `@Table(name = "orders")` or PostgreSQL fails with `syntax error at or near "order"` (verified).
+
 ## MySQL Setup
 
 ```xml

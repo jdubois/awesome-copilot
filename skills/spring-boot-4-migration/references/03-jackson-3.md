@@ -13,7 +13,7 @@ Jackson 3 changes **group ID and package names**:
 **libs.versions.toml:**
 ```toml
 [versions]
-jackson = "3.0.1" # Managed by Spring Boot 4.0
+jackson = "3.1.5" # Managed by Spring Boot 4.1; use the version from your Boot BOM
 
 [libraries]
 # Jackson 3 uses new group ID
@@ -21,7 +21,8 @@ jackson-databind = { module = "tools.jackson.core:jackson-databind", version.ref
 jackson-module-kotlin = { module = "tools.jackson.module:jackson-module-kotlin", version.ref = "jackson" }
 
 # Exception: annotations still use old group
-jackson-annotations = { module = "com.fasterxml.jackson.core:jackson-annotations", version.ref = "jackson" }
+# (its version stays 2.x, e.g. 2.22; do not reuse the Jackson 3 version; omit the version when the Boot BOM manages it)
+jackson-annotations = { module = "com.fasterxml.jackson.core:jackson-annotations" }
 ```
 
 ### Class and Annotation Renames
@@ -58,7 +59,7 @@ class JacksonConfig {
 
 // New (Spring Boot 4.0)
 import tools.jackson.databind.ObjectMapper
-import org.springframework.boot.autoconfigure.jackson.JsonMapperBuilderCustomizer
+import org.springframework.boot.jackson.autoconfigure.JsonMapperBuilderCustomizer
 import org.springframework.boot.jackson.JacksonComponent
 
 @JacksonComponent

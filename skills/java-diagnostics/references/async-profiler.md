@@ -1,6 +1,6 @@
 # async-profiler (Tier 2: needs consent)
 
-Low-overhead sampling profiler (CPU, wall-clock, allocation, lock, native memory) producing flame graphs. Project: https://github.com/async-profiler/async-profiler . Download a **pinned release** from its GitHub Releases page and verify the checksum; do not pipe scripts into a shell. State the profiling duration and mode before running. Check the README of the version you use for current flags.
+Low-overhead sampling profiler (CPU, wall-clock, allocation, lock, native memory) producing flame graphs. Project: https://github.com/async-profiler/async-profiler . Download a **pinned release** from its GitHub Releases page and verify the checksum (the release API lists a sha256 digest per asset); do not pipe scripts into a shell. State the profiling duration and mode before running. Check the README of the version you use for current flags. The commands below were run against 4.5 (macOS build, attached to a running JDK 27 JVM); `nativemem` needs 4.0 or newer, and `-e lock` prints "No samples were collected" when there is no contention.
 
 ## Usage (3.x/4.x launcher `asprof`)
 
@@ -9,7 +9,7 @@ asprof -d 30 -e cpu -f /secure/dir/cpu.html <pid>      # CPU flame graph, 30 s
 asprof -d 30 -e wall -t -f wall.html <pid>             # wall-clock per thread (slow requests, startup)
 asprof -d 30 -e alloc -f alloc.html <pid>              # allocations
 asprof -d 30 -e lock -f lock.html <pid>                # lock contention
-asprof -d 60 -e nativemem -f native.html <pid>         # native allocations (version-dependent)
+asprof -d 60 -e nativemem -f native.html <pid>         # native allocations (4.0+); use -f native.jfr then `jfrconv --nativemem --leak` for leak analysis
 ```
 
 Use as a Java agent for startup profiling:

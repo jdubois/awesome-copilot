@@ -14,7 +14,7 @@ quarkus.container-image.tag=1.0.0
 # push: -Dquarkus.container-image.push=true  with quarkus.container-image.registry=ghcr.io
 ```
 
-Jib needs no Docker daemon to build; the docker extension uses `src/main/docker/Dockerfile.jvm` / `Dockerfile.native`.
+Jib builds the image itself (verified: `myorg/demo:1.0.0`, 192 MB, appeared in the local Docker daemon). It needs no daemon when pushing to a registry; without `push` it loads into the local daemon. The docker extension uses `src/main/docker/Dockerfile.jvm` / `Dockerfile.native`. Add only one `container-image-*` extension: with several, the build fails with `IllegalStateException` (verified with jib + openshift).
 
 ## Dockerfiles generated in src/main/docker
 

@@ -54,7 +54,7 @@ services:
 
 ## Tests
 
-Use Testcontainers with `@ServiceConnection`; see the `spring-boot-testing` skill (`references/testcontainers-jdbc.md`). Pin the image tag; never `latest`.
+Use Testcontainers with `@ServiceConnection`; see the `spring-boot-testing` skill (`references/testcontainers-jdbc.md`). Pin the image tag; never `latest`. start.spring.io generates `postgres:latest` in `compose.yaml` and `TestcontainersConfiguration`: replace both with `postgres:18-alpine` (verified).
 
 ## Performance and production
 

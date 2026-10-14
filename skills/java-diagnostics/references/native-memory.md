@@ -2,7 +2,7 @@
 
 Use when container RSS grows but heap usage does not. NMT tracks JVM-internal allocations (metaspace, thread stacks, code cache, GC structures, direct buffers via `Internal`/`Other`), not arbitrary native library `malloc`.
 
-Enable at startup (needs a restart; summary adds roughly 5-10% overhead, detail more):
+Enable at startup (needs a restart; Oracle documents a 5-10% JVM performance drop with NMT enabled, plus extra malloc header memory, and `detail` costs more; measure on your workload):
 
 ```
 -XX:NativeMemoryTracking=summary

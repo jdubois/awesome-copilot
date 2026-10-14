@@ -38,6 +38,10 @@ class MyServiceTest {
 }
 ```
 
+### @MockBean and @SpyBean removed
+
+Replace `org.springframework.boot.test.mock.mockito.MockBean`/`SpyBean` with `org.springframework.test.context.bean.override.mockito.MockitoBean`/`MockitoSpyBean` (Spring Framework 6.2+, so this can be done on Boot 3.5 first). Slice and `@AutoConfigure*` annotations moved to per-technology packages, for example `org.springframework.boot.webmvc.test.autoconfigure.WebMvcTest`/`AutoConfigureMockMvc` and `org.springframework.boot.data.jpa.test.autoconfigure.DataJpaTest`; each needs its `spring-boot-starter-*-test` dependency.
+
 ### @SpringBootTest Changes
 
 `@SpringBootTest` no longer provides **MockMVC**, **WebTestClient**, or **TestRestTemplate** automatically.
@@ -131,7 +135,7 @@ class RestApiTest {
 **TestRestTemplate package change (if still using):**
 
 **IMPORTANT:** If continuing to use `TestRestTemplate`, you must:
-1. Add the `spring-boot-resttestclient` test dependency
+1. Add the `spring-boot-resttestclient` test dependency plus `spring-boot-starter-restclient` (verified: without it the context fails with `NoClassDefFoundError: org/springframework/boot/restclient/RestTemplateBuilder`)
 2. **Update the package import** (class moved to new package)
 
 **libs.versions.toml:**

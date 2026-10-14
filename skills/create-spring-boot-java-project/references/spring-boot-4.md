@@ -23,4 +23,4 @@ Detect the project's Spring Boot major first (see [versions.md](versions.md)); a
 
 ## Boot 3 projects
 
-Stay on Boot 3 when the project is on Boot 3: use `spring-boot-starter-web`, `org.testcontainers.containers.PostgreSQLContainer` (Testcontainers 1.x), `@MockBean`, Jackson 2. Do not migrate unless asked; Boot 3.5 → 4.0 is a separate, deliberate upgrade.
+Stay on Boot 3 when the project is on Boot 3 (start.spring.io cannot generate new 3.x projects, see [versions.md](versions.md)): use `spring-boot-starter-web`, `org.testcontainers.containers.PostgreSQLContainer` (Testcontainers 1.x), `@MockBean`, Jackson 2. Do not migrate unless asked; Boot 3.5 → 4.0 is a separate, deliberate upgrade.
