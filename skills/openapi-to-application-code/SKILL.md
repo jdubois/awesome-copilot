@@ -5,7 +5,7 @@ description: 'Generate a Spring Boot (Java) application from an OpenAPI 3 specif
 
 # Spring Boot application from an OpenAPI spec
 
-Spec-first: the OpenAPI file is the source of truth. Generate **interfaces and DTOs only** at build time (never commit generated code), then hand-write the implementation. Verified with Spring Boot 4.0.8, openapi-generator 7.26.0 (Maven plugin and Gradle plugin), JDK 21+.
+Spec-first: the OpenAPI file is the source of truth. Generate **interfaces and DTOs only** at build time (never commit generated code), then hand-write the implementation. Verified with Spring Boot 4.0.8 and 4.1.1, openapi-generator 7.26.0 (Maven plugin, Gradle Groovy and Kotlin DSL), JDK 21+.
 
 ## Step 0: Detect and gather
 
@@ -71,11 +71,29 @@ sourceSets.main.java.srcDir layout.buildDirectory.dir('generated/openapi/src/mai
 tasks.named('compileJava') { dependsOn 'openApiGenerate' }
 ```
 
+Gradle (Kotlin DSL; plugin `id("org.openapi.generator") version "7.26.0"`, resolved from the Gradle plugin portal, so keep `gradlePluginPortal()` in `pluginManagement`):
+
+```kotlin
+openApiGenerate {
+    generatorName.set("spring")
+    inputSpec.set("$projectDir/src/main/resources/openapi/petstore.yaml")
+    outputDir.set(layout.buildDirectory.dir("generated/openapi").get().asFile.path)
+    apiPackage.set("com.example.petstore.api")
+    modelPackage.set("com.example.petstore.api.model")
+    generateApiTests.set(false)
+    generateModelTests.set(false)
+    configOptions.set(mapOf("interfaceOnly" to "true", "useSpringBoot4" to "true", "useJackson3" to "true", "useTags" to "true",
+        "skipDefaultInterface" to "true", "openApiNullable" to "false", "documentationProvider" to "none", "annotationLibrary" to "none"))
+}
+sourceSets.main { java.srcDir(layout.buildDirectory.dir("generated/openapi/src/main/java")) }
+tasks.compileJava { dependsOn("openApiGenerate") }
+```
+
 Option notes:
 
 - **Spring Boot 3.x**: drop `useSpringBoot4` and `useJackson3` (`useSpringBoot3=true` is the default). Boot 4 needs both options; Jackson 3 is only allowed with `useSpringBoot4`.
-- `interfaceOnly=true` generates `<Tag>Api` interfaces (with `@RequestMapping`/validation annotations) and models. `delegatePattern=true` (instead) generates controllers calling a `<Tag>ApiDelegate` you implement; prefer `interfaceOnly`, it is simpler.
-- `documentationProvider=none` and `annotationLibrary=none` avoid pulling springdoc/swagger annotations into the generated code. Serving the spec/Swagger UI is optional: add `org.springdoc:springdoc-openapi-starter-webmvc-ui` (3.x line for Boot 4, 2.8.x for Boot 3) only if requested.
+- `interfaceOnly=true` generates `<Tag>Api` interfaces (with `@RequestMapping`/validation annotations) and models. `delegatePattern=true` (instead) generates controllers calling a `<Tag>ApiDelegate` you implement; prefer `interfaceOnly`, it is simpler. If you use `delegatePattern` (verified on Boot 4.1.1): drop `skipDefaultInterface` (it breaks the generated delegate, compile errors); generate only `ApiUtil.java` as supporting file, otherwise the default delegate methods fail with `cannot find symbol ApiUtil` and a full set of supporting files adds an `OpenApiGeneratorApplication` main class (`Unable to find a single main class` in `bootJar`): Maven `<supportingFilesToGenerate>ApiUtil.java</supportingFilesToGenerate>` instead of `<generateSupportingFiles>false</generateSupportingFiles>`, Gradle `globalProperties = [apis: '', models: '', supportingFiles: 'ApiUtil.java']`. The generated `<Tag>ApiController` is a `@Controller` in `apiPackage`: it must be under the `@SpringBootApplication` package (e.g. `com.example.demo.api`), otherwise it is not scanned and the endpoints return 404.
+- `documentationProvider=none` and `annotationLibrary=none` avoid pulling springdoc/swagger annotations into the generated code. Serving the spec/Swagger UI is optional: add `org.springdoc:springdoc-openapi-starter-webmvc-ui` (3.x line for Boot 4, 2.8.x for Boot 3) only if requested; verified with springdoc 3.1.1 on Boot 4.1.1 (`/v3/api-docs` returns OpenAPI 3.1 JSON, `/swagger-ui/index.html` returns 200).
 - `openApiNullable=false` avoids the `jackson-databind-nullable` dependency; keep it `true` only if the spec has PATCH semantics with nullable fields.
 - Generated models use `jakarta.validation`: `spring-boot-starter-validation` must be on the classpath. Required properties become constructor arguments **in generated order**; read the generated class in `target/generated-sources/openapi` (or `build/generated/openapi`) before calling constructors.
 - Use `<importMappings>`/`<typeMappings>` only when a schema must map to an existing class.

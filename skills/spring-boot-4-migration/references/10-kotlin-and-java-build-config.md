@@ -29,11 +29,8 @@ kotlin {
     }
 }
 
-tasks.withType<KotlinCompile> {
-    kotlinOptions {
-        jvmTarget = "21" // Match Java toolchain
-    }
-}
+// Do not use kotlinOptions { jvmTarget = ... }: it is an error with Kotlin 2.2+ (verified). The Java toolchain sets the JVM target;
+// to set it explicitly use kotlin { compilerOptions { jvmTarget.set(org.jetbrains.kotlin.gradle.dsl.JvmTarget.JVM_21) } }.
 
 tasks.withType<Test> {
     useJUnitPlatform()

@@ -36,6 +36,8 @@ jfr print --json --events jdk.SocketRead rec.jfr
 
 Useful events: `jdk.ExecutionSample` (CPU hot methods), `jdk.ObjectAllocationSample` (allocation), `jdk.GCPhasePause`, `jdk.JavaMonitorEnter` (lock contention), `jdk.SocketRead`/`jdk.FileRead` (slow I/O), `jdk.ClassLoad`, `jdk.CPULoad`, `jdk.NativeMethodSample`.
 
+`jdk.VirtualThreadPinned` (JDK 21+, in the default profile, 20 ms threshold) reports virtual threads that blocked while pinned; verified on JDK 21.0.12 and 27. It is the replacement for `-Djdk.tracePinnedThreads` (JDK 21-23 only, see [thread-dumps](thread-dumps.md)).
+
 ## JDK Mission Control
 
 Open the `.jfr` file in JDK Mission Control (JMC, separate download from https://adoptium.net/jmc or the Oracle/Eclipse distributions). The Automated Analysis page gives ranked findings; the Method Profiling, Memory, Lock Instances, and I/O pages drill down. Open recordings locally; they contain stack traces, system properties, and sometimes command lines or environment details, so do not share them from sensitive environments.

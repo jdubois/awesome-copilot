@@ -14,6 +14,18 @@ Help upgrade a Java project step by step and adopt new language features safely.
 3. **Load only the guide you need** from the table below. Do not load all of them.
 4. **Update the build first** (compiler release, plugins, dependencies that need newer versions), then adopt language features incrementally in small, reviewable changes.
 5. **Verify**: `./mvnw verify` or `./gradlew build`, and fix deprecation and removal warnings before adopting new features.
+6. **Automate and check upstream.** Use OpenRewrite when available (for example `org.openrewrite.java.migrate.UpgradeToJava21`) and always fetch the version-specific official guide before editing; review the generated diff.
+
+## Upstream sources (read before upgrading)
+
+Fetch the page for the target version; prefer it over this skill when they conflict. Full list with build-tool and agent compatibility pages: [references/upstream-sources.md](references/upstream-sources.md).
+
+- OpenJDK release page: <https://openjdk.org/projects/jdk/21/> (change the number) and JEP index <https://openjdk.org/jeps/0>
+- Oracle migration guide: <https://docs.oracle.com/en/java/javase/21/migrate/getting-started.html>
+- Oracle release notes: <https://www.oracle.com/java/technologies/javase/21-relnote-issues.html>
+- `jdeprscan` / `jdeps`: <https://docs.oracle.com/en/java/javase/21/docs/specs/man/jdeprscan.html>, <https://docs.oracle.com/en/java/javase/21/docs/specs/man/jdeps.html>
+- Gradle compatibility matrix: <https://docs.gradle.org/current/userguide/compatibility.html>
+- OpenRewrite: <https://docs.openrewrite.org/recipes/java/migrate/upgradetojava21>
 
 ## Per-version guides
 

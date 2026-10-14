@@ -82,3 +82,12 @@ Generated tests include a `*IT` class that Maven skips by default (`<skipITs>tru
 Verified (scaffold, `./mvnw verify`, `./gradlew build`, dev mode, Dev Services PostgreSQL, JDK 26 with Java 25 release) on Quarkus 3.40.1 (current recommended LTS stream) and `./mvnw verify` on 3.27.6 (older LTS).
 
 Related skills: `quarkus-dev-services-and-testing`, `quarkus-native-and-container`.
+
+## Upstream sources (read before upgrading)
+
+Fetch the page for the target version; prefer it over this skill when they conflict.
+
+- `quarkus update` (automated upgrade, uses OpenRewrite): <https://quarkus.io/guides/update-quarkus>
+- Migration guides, one wiki page per minor: <https://github.com/quarkusio/quarkus/wiki/Migration-Guide-3.20> (change the version)
+- Release announcements: <https://quarkus.io/blog/>
+- LTS policy and current LTS: <https://quarkus.io/blog/lts-releases/>

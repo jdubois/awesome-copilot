@@ -56,4 +56,25 @@ Step-by-step migration workflow. Topic details live in `references/`; load only 
 | [10-kotlin-and-java-build-config.md](references/10-kotlin-and-java-build-config.md) | Kotlin compiler and Java preview configuration |
 | [11-checklist-pitfalls-resources.md](references/11-checklist-pitfalls-resources.md) | Final checklist, pitfalls, links |
 
+## Automation
+
+Use OpenRewrite (`org.openrewrite.java.spring.boot4.UpgradeSpringBoot_4_0`, <https://docs.openrewrite.org/recipes/java/spring/boot4/upgradespringboot_4_0-community-edition>) when available, review the diff, and always fetch the version-specific official guide before editing.
+
+## Upstream sources (read before migrating)
+
+Fetch the page for the target version; prefer it over this skill when they conflict.
+
+- Boot 4.0 Migration Guide: <https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-4.0-Migration-Guide>
+- Boot 4.0 Release Notes: <https://github.com/spring-projects/spring-boot/wiki/Spring-Boot-4.0-Release-Notes>
+- Upgrading Spring Boot (incl. `spring-boot-properties-migrator`): <https://docs.spring.io/spring-boot/upgrading.html>
+- System requirements: <https://docs.spring.io/spring-boot/system-requirements.html>
+- Boot releases: <https://github.com/spring-projects/spring-boot/releases>
+- Spring Framework 7: <https://github.com/spring-projects/spring-framework/wiki/Upgrading-to-Spring-Framework-7.x>, <https://github.com/spring-projects/spring-framework/wiki/What%27s-New-in-Spring-Framework-7.x>
+- Spring Security 7: <https://docs.spring.io/spring-security/reference/migration/index.html>
+- Spring Data 2025.1: <https://github.com/spring-projects/spring-data-commons/wiki/Spring-Data-2025.1-Release-Notes>
+- Spring Batch 6: <https://docs.spring.io/spring-batch/reference/whatsnew.html>
+- Hibernate ORM 7: <https://docs.hibernate.org/orm/7.0/migration-guide/>
+- Jackson 3: <https://github.com/FasterXML/jackson/blob/main/jackson3/MIGRATING_TO_JACKSON_3.md>
+- Micrometer: <https://github.com/micrometer-metrics/micrometer/wiki/Migration-Guide>
+
 Related skills: `spring-security` (Security 7 changes), `spring-observability`, `java-hibernate-jpa`.

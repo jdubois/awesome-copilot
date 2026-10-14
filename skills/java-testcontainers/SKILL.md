@@ -110,3 +110,5 @@ Prefer sharing a container and isolating **data** (truncate/rollback, unique sch
 - `references/environment-ci-troubleshooting.md`: Docker/Podman/Colima setup, CI, private registries, performance, common errors, 1.x to 2.x migration table.
 
 Official docs: <https://java.testcontainers.org/>
+
+Upgrading to 2.x: no dedicated migration page was found on java.testcontainers.org; read the 2.0.0 release notes <https://github.com/testcontainers/testcontainers-java/releases/tag/2.0.0> and all releases <https://github.com/testcontainers/testcontainers-java/releases> for the target version, and prefer them over this skill when they conflict.

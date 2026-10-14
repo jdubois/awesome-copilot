@@ -65,5 +65,16 @@ Replace all `javax.` imports with `jakarta.` equivalents in `.java` files.
 2. Run `mvn test` or `gradlew test` — ensure all tests pass
 3. Search for any remaining `javax.*` imports (excluding JDK packages)
 
+### Upstream sources (read before migrating)
+
+Fetch the page for the target version; prefer it over this skill when they conflict.
+
+- Jakarta EE specifications: <https://jakarta.ee/specifications/>
+- Eclipse Transformer (binary/bytecode transformation): <https://github.com/eclipse-transformer/transformer>
+- OpenRewrite `org.openrewrite.java.migrate.jakarta.JavaxMigrationToJakarta`: <https://docs.openrewrite.org/recipes/java/migrate/jakarta/javaxmigrationtojakarta>
+- Tomcat 9 to 10 migration: <https://tomcat.apache.org/migration-10.html>
+- Hibernate migration guides: <https://hibernate.org/orm/documentation/migrate/>
+- Spring Boot 3 upgrade (Jakarta EE 9+ baseline): <https://docs.spring.io/spring-boot/upgrading.html>
+
 ### Output
 Provide a migration summary listing all files changed, imports replaced, and any manual steps required.

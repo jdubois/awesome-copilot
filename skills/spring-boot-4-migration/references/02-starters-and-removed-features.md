@@ -17,11 +17,11 @@ Most technologies covered by Spring Boot now have **dedicated test starter compa
 **libs.versions.toml:**
 ```toml
 [versions]
-springBoot = "4.0.0"
+springBoot = "4.1.1"
 
 [libraries]
 # Core starters with dedicated test modules
-spring-boot-starter-web = { module = "org.springframework.boot:spring-boot-starter-webmvc", version.ref = "springBoot" }
+spring-boot-starter-webmvc = { module = "org.springframework.boot:spring-boot-starter-webmvc", version.ref = "springBoot" }
 spring-boot-starter-webmvc-test = { module = "org.springframework.boot:spring-boot-starter-webmvc-test", version.ref = "springBoot" }
 
 spring-boot-starter-data-jpa = { module = "org.springframework.boot:spring-boot-starter-data-jpa", version.ref = "springBoot" }
@@ -44,9 +44,15 @@ dependencies {
 }
 ```
 
-#### Option 2: Classic Starters (Quick Migration, Deprecated)
+#### Option 2: Classic Starters (Quick Migration, Temporary)
 
-For rapid migration, use **classic starters** that bundle all auto-configuration (like Spring Boot 3.x):
+The classic starters restore the Boot 3 *module granularity*, not the Boot 3 starters. Verified on 4.1.1 with a migrated JPA + security + web project:
+
+- `spring-boot-starter-classic` = `spring-boot-starter` + `spring-boot-autoconfigure-classic`: all auto-configuration modules, but without their library dependencies.
+- `spring-boot-starter-test-classic` = `spring-boot-starter-test` + all the `*-test` modules (webmvc, data-jpa, security, ...).
+- You still declare the technology starters (`spring-boot-starter-webmvc`, `-data-jpa`, `-security`, ...): with only the classic starters the build fails on missing `jakarta.persistence`, Spring Security and Jackson classes.
+- They do **not** bring back the old packages or `@MockBean`: the test/auto-configuration imports must still be migrated (see the testing reference).
+- `spring-boot-starter-web` itself still resolves in 4.1.1 as a deprecated alias of `spring-boot-starter-webmvc`.
 
 **libs.versions.toml:**
 ```toml
@@ -59,11 +65,12 @@ spring-boot-starter-test-classic = { module = "org.springframework.boot:spring-b
 ```kotlin
 dependencies {
     implementation(libs.spring.boot.starter.classic)
+    implementation(libs.spring.boot.starter.webmvc) // technology starters are still required
     testImplementation(libs.spring.boot.starter.test.classic)
 }
 ```
 
-**Warning**: Classic starters are **deprecated** and will be removed in future releases. Plan migration to technology-specific starters.
+**Note**: the Spring Boot migration guide recommends eventually migrating away from the classic starters (whether and when they are removed is not stated there). Plan migration to technology-specific starters.
 
 #### Option 3: Direct Module Dependencies (Advanced)
 

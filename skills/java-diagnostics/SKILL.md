@@ -70,3 +70,5 @@ See [containers](references/containers.md) for attaching tools inside containers
 - [Native Memory Tracking](references/native-memory.md)
 - [Containers](references/containers.md)
 - Debugger-based investigation: the `java-debugging` skill.
+
+Official docs (prefer them over this skill for the JDK in use; change `21` to your version): `jcmd` <https://docs.oracle.com/en/java/javase/21/docs/specs/man/jcmd.html>, `jfr` <https://docs.oracle.com/en/java/javase/21/docs/specs/man/jfr.html>, JFR guide <https://docs.oracle.com/en/java/javase/21/jfr/introduction-jdk-flight-recorder.html>, troubleshooting guide <https://docs.oracle.com/en/java/javase/21/troubleshoot/>, async-profiler releases <https://github.com/async-profiler/async-profiler/releases>.

@@ -67,3 +67,5 @@ Problem -> anti-pattern -> fix library for entity mapping and querying. Framewor
 - `references/tooling-and-versions.md`: SQL logging, statistics, tests, connection pool sizing, migrations, Hibernate 5/6/7 differences.
 
 Canonical docs: Hibernate ORM user guide <https://docs.hibernate.org/orm/current/userguide/html_single/> and Jakarta Persistence <https://jakarta.ee/specifications/persistence/>. Deep background articles: <https://vladmihalcea.com/>.
+
+Upgrading (fetch the page for the target version; prefer it over this skill): migration guides <https://hibernate.org/orm/documentation/migrate/> (6.6: <https://docs.hibernate.org/orm/6.6/migration-guide/>, 7.0: <https://docs.hibernate.org/orm/7.0/migration-guide/>), release notes <https://hibernate.org/orm/releases/>.

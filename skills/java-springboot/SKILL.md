@@ -53,3 +53,5 @@ Deeper guidance lives in the references of the `create-spring-boot-java-project`
 ## Observability
 
 - Expose Actuator `health`/`info` only by default; for metrics, tracing and log correlation (Micrometer, OpenTelemetry) use the `spring-observability` skill.
+
+See also: Actuator <https://docs.spring.io/spring-boot/reference/actuator/index.html>, testing <https://docs.spring.io/spring-boot/reference/testing/index.html>, upgrading <https://docs.spring.io/spring-boot/upgrading.html> (for a Boot 4 move use `spring-boot-4-migration`).

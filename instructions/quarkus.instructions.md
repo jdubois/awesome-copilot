@@ -48,3 +48,5 @@ description: 'Quarkus development standards and instructions'
 - Reflection-heavy libraries without `@RegisterForReflection` when targeting native.
 - Blocking calls on the event loop (use `@Blocking` or virtual threads with `@RunOnVirtualThread`).
 - Swallowing exceptions or hard-coding configuration values.
+
+Upgrading Quarkus: run `quarkus update` (<https://quarkus.io/guides/update-quarkus>) and read the version's migration guide at <https://github.com/quarkusio/quarkus/wiki/Migration-Guide-3.20> (change the version) before editing.

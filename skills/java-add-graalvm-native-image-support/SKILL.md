@@ -96,3 +96,12 @@ A successful build is not enough: many problems only appear at runtime.
 - [Spring Boot GraalVM native images](https://docs.spring.io/spring-boot/reference/packaging/native-image/index.html)
 - [Quarkus building a native executable](https://quarkus.io/guides/building-native-image)
 - [Micronaut GraalVM guide](https://docs.micronaut.io/latest/guide/#graal)
+
+## Upstream sources (read before upgrading GraalVM or native config)
+
+Fetch the page for the target version; prefer it over this skill when they conflict.
+
+- GraalVM release notes: <https://www.graalvm.org/release-notes/>
+- Reachability metadata format: <https://www.graalvm.org/latest/reference-manual/native-image/metadata/>
+- Build configuration options: <https://www.graalvm.org/latest/reference-manual/native-image/overview/BuildConfiguration/>
+- Metadata repository (check your library versions are covered): <https://github.com/oracle/graalvm-reachability-metadata>

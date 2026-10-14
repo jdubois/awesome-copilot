@@ -23,7 +23,8 @@ ENV NATIVE_IMAGE_OPTIONS="-H:+StaticExecutableWithDynamicLibC"
 RUN ./mvnw -Pnative -DskipTests -B package native:compile
 
 # The executable is named after the artifactId; copy it to a fixed name.
-RUN native_exe=$(find target -maxdepth 1 -type f -executable ! -name '*.jar' ! -name '*.original' | head -1) && \
+# GraalVM 25 also drops executable libjava.so/libjvm.so stubs next to it: skip them.
+RUN native_exe=$(find target -maxdepth 1 -type f -executable ! -name '*.jar' ! -name '*.original' ! -name '*.so' | head -1) && \
     test -n "$native_exe" && cp "$native_exe" native-app
 
 FROM gcr.io/distroless/base-debian12:nonroot

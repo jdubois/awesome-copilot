@@ -63,3 +63,5 @@ For a local-only developer console (and an opt-in MCP server) that shows a runni
 - Ask the user for consent before adding any dependency.
 - Use it only in a dev/local profile (for example a Maven/Gradle profile or `developmentOnly` configuration); never ship it to production.
 - Follow BootUI's own documentation for coordinates and setup rather than copying them here.
+
+See also: <https://docs.spring.io/spring-boot/reference/actuator/observability.html> and <https://docs.micrometer.io/micrometer/reference/>.

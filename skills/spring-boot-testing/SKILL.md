@@ -183,6 +183,8 @@ Use Jacoco maven plugin for coverage reporting and tracking.
 
 ## Dependencies (Spring Boot 4)
 
+See also: <https://docs.spring.io/spring-boot/reference/testing/spring-boot-applications.html> and <https://docs.spring.io/spring-boot/reference/features/dev-services.html>.
+
 ```xml
 <dependency>
   <groupId>org.springframework.boot</groupId>

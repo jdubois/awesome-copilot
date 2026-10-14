@@ -72,3 +72,5 @@ Rules of thumb:
 ## Verify
 
 Run the app's tests plus security-specific tests (401 without credentials, 403 with insufficient role, 200 with the right one, CSRF rejection on state-changing browser requests). Confirm no endpoint was accidentally left open by listing the mappings and checking each against the filter chain.
+
+See also (prefer over this skill for the version in use): Spring Security reference <https://docs.spring.io/spring-security/reference/index.html> and migration chapter <https://docs.spring.io/spring-security/reference/migration/index.html>.

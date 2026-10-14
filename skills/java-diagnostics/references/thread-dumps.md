@@ -31,7 +31,7 @@ jcmd <pid> Thread.dump_to_file -format=json threads.json
 jcmd <pid> Thread.dump_to_file threads.txt
 ```
 
-`Thread.print` shows only platform threads (virtual threads were verified missing on JDK 27, present in `Thread.dump_to_file`). Pinned virtual threads (blocked inside `synchronized` on JDK 21-23, or native frames on any version) can be investigated with the JFR event `jdk.VirtualThreadPinned` (see [jfr](jfr.md)). `-Djdk.tracePinnedThreads=full` works only on JDK 21-23; JEP 491 removed it in JDK 24, where setting it is silently ignored.
+`Thread.print` shows only platform threads (virtual threads were verified missing on JDK 27, present in `Thread.dump_to_file`). Pinned virtual threads (blocked inside `synchronized` on JDK 21-23, or native frames on any version) can be investigated with the JFR event `jdk.VirtualThreadPinned` (see [jfr](jfr.md)). `-Djdk.tracePinnedThreads=full` (or `short`, which prints only the frames holding monitors) works only on JDK 21-23: on 21.0.12 it printed `VirtualThread[#20,vt-pinned]/runnable@ForkJoinPool-1-worker-1 reason:MONITOR` with the stack and `<== monitors:1`. JEP 491 removed it in JDK 24 (verified silent on 27: no output). From JDK 24, `synchronized` no longer pins; pinning remains for native frames and class initializers (a virtual thread sleeping inside a static initializer was reported by JFR on JDK 27 with `pinnedReason = "VM call to Pin$Slow.<clinit> on stack"`). On JDK 21-23 the same JFR event also works (verified on 21.0.12 for the `synchronized` case).
 
 ## Reading tips
 

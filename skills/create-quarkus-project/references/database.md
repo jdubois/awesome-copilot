@@ -2,6 +2,8 @@
 
 Extensions: `hibernate-orm-panache`, `jdbc-postgresql` (or another JDBC driver). Optional: `flyway` or `liquibase`.
 
+"Panache Next" (a unified blocking/reactive API) was renamed Quarkus Data in 3.37: the artifact is `quarkus-data-hibernate` (previously `quarkus-hibernate-panache-next`, and earlier `quarkus-hibernate-panache`). Its extension metadata in 3.40.1 says `status: experimental`, so keep `hibernate-orm-panache` (stable) unless the user asks for Quarkus Data. Not compiled here: only the artifact metadata and the 3.37/4.0 migration guides were checked.
+
 ## Dev Services
 
 With no `quarkus.datasource.jdbc.url` configured, dev and test modes start a PostgreSQL container automatically (Docker/Podman required). Do not set the URL in `%dev`/`%test`. Tuning:

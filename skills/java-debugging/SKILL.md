@@ -88,7 +88,7 @@ Run | Edit Configurations | + | Remote JVM Debug; host `127.0.0.1`, port `5005`,
 | Spring Boot (Gradle) | `gradle bootRun --debug-jvm` (see the loopback form below), or `jvmArgs` with an explicit `127.0.0.1` agent |
 | Quarkus dev mode | `mvn quarkus:dev` (debug port 5005 open by default; `-Ddebug=5006` changes it, `-Ddebug=false` disables) |
 
-Surefire/Failsafe debug mode and `--debug-jvm` suspend until a debugger attaches, which is fine for a local run. Surefire and Failsafe accept a custom agent string instead of the bare flag, e.g. `-Dmaven.surefire.debug="-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=127.0.0.1:5005"`. Verified listeners on `127.0.0.1` (via `lsof -nP -iTCP:5005 -sTCP:LISTEN`) for Gradle 9.7 `--debug-jvm`, Maven Surefire 3.5 `-Dmaven.surefire.debug` and Quarkus 3.40 dev mode on JDK 26; older Gradle/plugin versions were not tested, so run the same `lsof` check and use an explicit loopback agent on shared networks. Safe Gradle form (Gradle 5.6+; Kotlin DSL shown, for `test` or `bootRun`):
+Surefire/Failsafe debug mode and `--debug-jvm` suspend until a debugger attaches, which is fine for a local run. Surefire and Failsafe accept a custom agent string instead of the bare flag, e.g. `-Dmaven.surefire.debug="-agentlib:jdwp=transport=dt_socket,server=y,suspend=y,address=127.0.0.1:5005"`. Verified listeners on `127.0.0.1` (via `lsof -nP -iTCP:5005 -sTCP:LISTEN`) for Gradle 9.7 `--debug-jvm`, Maven Surefire 3.5 `-Dmaven.surefire.debug` and Quarkus 3.40 dev mode on JDK 26; Gradle 7.6.4, 8.0.2 (JDK 17), 8.5 (JDK 21) and 8.14.3 also listened on `127.0.0.1`. Gradle passes a bare `address=5005` (no host), so the bind address comes from the JDK: loopback on JDK 9+, but all interfaces (`0.0.0.0:5005`, checked in an `eclipse-temurin:8-jdk` container with Gradle 7.6.4 and 8.14.3) on JDK 8. Older Gradle/plugin versions were not tested; run the same `lsof` check and use an explicit loopback agent on shared networks or JDK 8. Safe Gradle form (Gradle 5.6+; Kotlin DSL shown, for `test` or `bootRun`):
 
 ```kotlin
 tasks.withType<Test> {
@@ -127,3 +127,5 @@ If the Copilot CLI `lsp` tool is configured (see the `lsp-setup` skill), go-to-d
 
 - [Reading stack traces](references/stack-traces.md)
 - For runtime symptoms (CPU, memory, deadlocks, slow startup) use the `java-diagnostics` skill.
+
+Official tool docs (prefer them over this skill for the JDK in use; change `21` to your version): `jcmd` <https://docs.oracle.com/en/java/javase/21/docs/specs/man/jcmd.html>, JDK troubleshooting guide <https://docs.oracle.com/en/java/javase/21/troubleshoot/>.

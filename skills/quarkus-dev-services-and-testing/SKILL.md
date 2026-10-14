@@ -74,3 +74,5 @@ Verified on Quarkus 3.40.1 (JDK 26, Docker Desktop): `@QuarkusTest` with Dev Ser
 - Use Dev Services before writing a custom resource.
 - Keep `@QuarkusTest` classes sharing the same profile/resources to avoid restarts.
 - Do not hard-code ports; RestAssured uses `quarkus.http.test-port` automatically.
+
+See also: <https://quarkus.io/guides/dev-services>, <https://quarkus.io/guides/getting-started-testing>; for upgrades use `quarkus update` (<https://quarkus.io/guides/update-quarkus>).

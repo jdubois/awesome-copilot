@@ -20,6 +20,8 @@ Spring Boot 3.x and later supports GraalVM native images through Spring AOT. Che
 
 Note that `build-image` with buildpacks does not require a local GraalVM: the builder provides it. Set `BP_NATIVE_IMAGE_BUILD_ARGUMENTS` / `BP_JVM_VERSION` through the plugin's `<environment>` / `bootBuildImage { environment }` when you need extra arguments.
 
+Verified on Boot 4.1.1 with Oracle GraalVM 25.0.4 (arm64, web + actuator + validation): `./mvnw -Pnative native:compile` (no prior `package` needed) takes about 2m40 and `./gradlew nativeCompile` about 3m50, both give a 102 MB binary that starts in 0.07-0.23 s with about 80 MB RSS. The Gradle toolchain must point at the GraalVM JDK (`-Dorg.gradle.java.installations.paths=<graalvm home>` if it is not auto-detected). Gradle `bootBuildImage` produced an image that failed at startup with hibernate-validator (see `create-spring-boot-java-project/references/docker.md`); the Maven equivalent worked, so run the image and hit `/actuator/health` before trusting it.
+
 Check `spring.aot.enabled=true` on the JVM first: it surfaces most AOT problems faster than a full native build.
 
 ## Custom runtime hints
