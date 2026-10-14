@@ -30,7 +30,7 @@ Invoke the `openapi-to-application-java-spring-boot` agent (or the `openapi-to-a
 
 | Agent | Description |
 |-------|-------------|
-| `openapi-to-application` | Expert assistant for generating working applications from OpenAPI specifications |
+| `openapi-to-application-java-spring-boot` | Expert assistant for generating Spring Boot applications from OpenAPI specifications |
 
 ## Source
 
