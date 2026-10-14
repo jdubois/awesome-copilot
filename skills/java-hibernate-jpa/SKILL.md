@@ -5,7 +5,7 @@ description: 'Diagnose and fix Hibernate ORM / Jakarta Persistence problems in p
 
 # Hibernate ORM and Jakarta Persistence
 
-Problem -> anti-pattern -> fix library for entity mapping and querying. Framework-neutral: it covers `EntityManager`/`Session` behavior, JPQL/HQL, and mapping annotations. For Spring Data repositories, transaction wiring, and `@DataJpaTest` see `java-springboot` and `spring-boot-testing`; for Panache and reactive persistence see the Quarkus skills. Integration tests against a real database: `java-testcontainers`.
+Problem -> anti-pattern -> fix library for entity mapping and querying. Framework-neutral: it covers `EntityManager`/`Session` behavior, JPQL/HQL, and mapping annotations. If the project uses Spring Boot and the `java-springboot` and `spring-boot-testing` skills are installed, use them for Spring Data repositories, transaction wiring, and `@DataJpaTest`; for Panache and reactive persistence see the Quarkus skills. Integration tests against a real database: `java-testcontainers`.
 
 ## First: detect the stack
 
@@ -40,7 +40,15 @@ Problem -> anti-pattern -> fix library for entity mapping and querying. Framewor
 9. Keep transactions short, at the service boundary; no remote calls or user interaction inside one.
 10. Write and flush in batches for bulk work and clear the persistence context periodically.
 11. Verify behavior with statement counts in tests against the real database engine.
-12. Schema changes go through Flyway/Liquibase; `hbm2ddl.auto` only `validate` or `none` outside throwaway environments.
+12. Follow the schema management rule below.
+
+## Schema management rule
+
+This is the single rule other skills refer to by name:
+
+- **Prototype/local:** `hbm2ddl.auto=update` (or `create-drop` for throwaway tests) is acceptable.
+- **Production (default):** versioned migrations with Flyway or Liquibase, and `hbm2ddl.auto=validate` (or `none`). Add them when the user wants versioned migrations or the app is headed to production.
+- **Externally managed schema:** `none` (or `validate`); do not add a migration tool.
 
 ## Review checklist
 

@@ -4,7 +4,7 @@
 
 - `/actuator/heapdump` returns an HPROF file containing everything in memory: credentials, tokens, personal data. It also pauses the JVM and can be several GB.
 - `/actuator/threaddump` reveals class names, thread states and sometimes parameters; it is a reconnaissance aid for attackers.
-- Never expose either in production without authentication (admin role), TLS, and network restriction (separate management port, internal only). Default: do not expose; enable temporarily during an incident, then revert.
+- Policy (shared with `java-diagnostics`): never expose either over public HTTP. The only exception is a temporary, user-consented window with authentication (admin role), TLS, and network restriction (separate management port, internal only), removed afterwards.
 - Treat downloaded dumps as sensitive data; store encrypted, delete after analysis, never attach to public tickets.
 - Boot 3.x/4.x can restrict access with `management.endpoint.heapdump.access=none` (Boot 3.4+); on older versions use `enabled=false`.
 

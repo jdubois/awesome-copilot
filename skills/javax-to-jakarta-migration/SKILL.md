@@ -1,15 +1,18 @@
 ---
 name: javax-to-jakarta-migration
-description: "Migrate Java code from javax.* to jakarta.* namespace. Use when upgrading to Tomcat 11, Jakarta EE 10, or when javax imports are detected in the codebase."
+description: "Migrate Java code from javax.* to jakarta.* namespace. Use only when the user explicitly asks for a javax to jakarta namespace or framework migration (for example to Tomcat 10+/11 or Jakarta EE), or when java-upgrade or spring-boot-4-migration delegates it. Finding javax imports alone does not authorize a migration."
 argument-hint: "File, package, or module to migrate"
 ---
 
 # javax → jakarta Migration Skill
 
 ## When to Use
-- Upgrading to Tomcat 11 / Jakarta EE 10+
-- Code review detects `javax.*` imports
-- Migrating an existing project to the jakarta namespace
+- The user explicitly asks to migrate to the jakarta namespace, Tomcat 10+/11 or Jakarta EE
+- `java-upgrade` or `spring-boot-4-migration` delegates the namespace migration
+
+Detecting `javax.*` imports alone does not authorize this migration; report them instead.
+
+In Spring Boot projects, the Boot BOM manages Jakarta versions: do not pin the versions below, and let the Boot version decide the Jakarta EE level (Boot 4 = Jakarta EE 11, Servlet 6.1). The table below is for EE 10 and non-Boot projects.
 
 ## Procedure
 

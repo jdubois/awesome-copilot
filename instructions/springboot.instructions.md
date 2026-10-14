@@ -50,21 +50,22 @@ Apply these instructions only when the project uses Spring Boot. For Kotlin proj
 ### Security & Input Handling
 
 - Use parameterized queries | Always use Spring Data JPA or `NamedParameterJdbcTemplate` to prevent SQL injection.
-- Validate request bodies and parameters using JSR-380 (`@NotNull`, `@Size`, etc.) annotations and `BindingResult`
+- Validate request bodies and parameters using Bean Validation (`@Valid`, `@NotNull`, `@Size`, etc.) annotations and handle `MethodArgumentNotValidException` in a `@RestControllerAdvice`
 
 ## Build and Verification
 
 - After adding or modifying code, verify the project continues to build successfully.
-- If the project uses Maven, run `mvn clean package`.
+- If the project uses Maven, run `./mvnw verify` (use the wrapper). `package` skips Failsafe integration tests (`*IT`).
 - If the project uses Gradle, run `./gradlew build` (or `gradlew.bat build` on Windows).
 - Ensure all tests pass as part of the build.
+- Use `package` or `test` only as focused, faster commands, not as the verification gate.
 
 ## Useful Commands
 
 | Gradle Command            | Maven Command                     | Description                                   |
 |:--------------------------|:----------------------------------|:----------------------------------------------|
 | `./gradlew bootRun`       |`./mvnw spring-boot:run`           | Run the application.                          |
-| `./gradlew build`         |`./mvnw package`                   | Build the application.                        |
+| `./gradlew build`         |`./mvnw verify`                    | Build and run all tests.                      |
 | `./gradlew test`          |`./mvnw test`                      | Run tests.                                    |
 | `./gradlew bootJar`       |`./mvnw spring-boot:repackage`     | Package the application as a JAR.             |
 | `./gradlew bootBuildImage`|`./mvnw spring-boot:build-image`   | Package the application as a container image. |

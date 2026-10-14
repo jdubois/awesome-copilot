@@ -101,7 +101,7 @@ Option notes:
 ## Step 3: Implement
 
 - One `@RestController` per generated `<Tag>Api` interface, `implements` it, no extra mapping annotations (they are inherited from the interface). Keep controllers thin; put logic in `@Service` classes and return DTOs, not entities. Map entities to generated DTOs explicitly (a MapStruct mapper if the project already uses it).
-- Persistence: in-memory only when asked; otherwise Spring Data JPA entities and repositories separate from the generated DTOs, Flyway or Liquibase migrations, and PostgreSQL via Docker Compose for dev. See the `java-springboot` skill.
+- Persistence: in-memory only when asked; otherwise Spring Data JPA entities and repositories separate from the generated DTOs, PostgreSQL via Docker Compose for dev, and schema handling per the schema management rule of the `java-hibernate-jpa` skill (Flyway or Liquibase for production). See the `java-springboot` skill.
 - Errors: `@RestControllerAdvice` returning RFC 9457 `ProblemDetail` for 400, 404 and 409; use the status codes declared in the spec. Bean validation failures already produce 400.
 - Security: map `securitySchemes` with the `spring-security` skill (JWT resource server, API key filter, method security). Do not generate `useSpringSecurityPreAuthorize` unless scopes are declared.
 - Never edit generated sources; change the spec or the generator options and rebuild.

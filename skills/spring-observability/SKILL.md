@@ -10,7 +10,8 @@ Covers Actuator, Micrometer, the Observation API, tracing, and logging. Details 
 ## Safety rules
 
 - Never read or print secrets (`.env`, credentials, tokens) while inspecting configuration or `/actuator/env`.
-- Never expose `heapdump`, `threaddump`, `env`, `configprops`, `loggers`, or `shutdown` in production without authentication and network restrictions.
+- Never expose `heapdump` or `threaddump` over public HTTP. The only exception is a temporary, user-consented window with authentication, TLS and network restriction, removed afterwards (same policy in `java-diagnostics`).
+- Never expose `env`, `configprops`, `loggers`, or `shutdown` in production without authentication and network restrictions.
 - Pin dependency versions via the Boot BOM; do not add explicit versions for Boot-managed artifacts.
 
 ## Detect first

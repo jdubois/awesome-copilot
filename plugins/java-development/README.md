@@ -25,6 +25,22 @@ copilot plugin install java-development@awesome-copilot
 | `javax-to-jakarta-migration` | see `skills/javax-to-jakarta-migration/SKILL.md` |
 | `lsp-setup` | see `skills/lsp-setup/SKILL.md` |
 
+## Which skill to use when
+
+| Need | Skill |
+|---|---|
+| Write or fix JUnit tests | `java-junit` |
+| Javadoc | `java-docs` |
+| JPA/Hibernate mapping, queries, schema management | `java-hibernate-jpa` |
+| Integration tests with Testcontainers | `java-testcontainers` |
+| Debug a failing program | `java-debugging` |
+| JVM diagnostics (CPU, memory, threads) | `java-diagnostics` |
+| Upgrade Java or dependency versions | `java-upgrade` |
+| Explicit javax to jakarta namespace migration | `javax-to-jakarta-migration` |
+| Native image (Spring Boot, Micronaut, plain Java) | `java-add-graalvm-native-image-support` |
+| Extract method / remove parameter refactoring | `java-refactoring-extract-method, java-refactoring-remove-parameter` |
+| Language server setup | `lsp-setup` |
+
 ## Migration note
 
 Version 2.0.0 contains core Java skills only. `create-spring-boot-java-project` and `java-springboot` moved to the `java-spring-boot` plugin.

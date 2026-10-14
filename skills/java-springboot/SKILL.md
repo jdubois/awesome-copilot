@@ -19,7 +19,7 @@ Your goal is to help me write high-quality Spring Boot applications by following
 - **Configuration:** use `application.yml`/`.properties` with profiles, bind typed settings with `@ConfigurationProperties`, and externalize secrets (environment variables or a secret store, never committed).
 - **Logging:** use SLF4J with parameterized messages (`log.info("Order {} created", id)`), never string concatenation; never log secrets or personal data.
 
-Deeper guidance lives in the references of the `create-spring-boot-java-project` skill: `references/configuration.md` (profiles, `@ConfigurationProperties`, secrets), `references/database.md` (PostgreSQL, Hibernate, Flyway/Liquibase), `references/logging.md`, `references/security.md` and `references/spring-boot-4.md` (Boot 3 vs 4 differences). The always-on `springboot` instruction file covers the same rules.
+The rules in this file are self-contained. If the `create-spring-boot-java-project` skill is installed, deeper guidance lives in its references: `references/configuration.md` (profiles, `@ConfigurationProperties`, secrets), `references/database.md` (PostgreSQL, Hibernate, Flyway/Liquibase), `references/logging.md`, `references/security.md` and `references/spring-boot-4.md` (Boot 3 vs 4 differences). The always-on `springboot` instruction file covers the same rules.
 
 ## Web Layer (Controllers)
 

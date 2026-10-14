@@ -1,3 +1,5 @@
+This is the canonical testing migration reference. For Boot 4 test-writing patterns (Testcontainers 2.0, RestTestClient, JUnit 6), see the `spring-boot-testing` skill (`references/sb4-migration.md`).
+
 ## Testing Framework Changes
 
 ### Mockito Integration Removed

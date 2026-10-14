@@ -30,6 +30,23 @@ copilot plugin install java-spring-boot@awesome-copilot
 
 This plugin bundles the core Java skills it relies on, so `java-development` is not required.
 
+## Which skill to use when
+
+| Need | Skill |
+|---|---|
+| Create a new Spring Boot project | `create-spring-boot-java-project` |
+| Spring Boot coding rules | `java-springboot` |
+| JPA/Hibernate mapping, queries, schema management | `java-hibernate-jpa` |
+| Spring Boot tests (slices, Testcontainers) | `spring-boot-testing` |
+| Generic Testcontainers lifecycle and reuse | `java-testcontainers` |
+| Authentication and authorization | `spring-security` |
+| Actuator, metrics, tracing, heapdump policy | `spring-observability` |
+| Spring Boot 3.x to 4 migration | `spring-boot-4-migration` |
+| Other Java/Boot version upgrades | `java-upgrade` |
+| Explicit javax to jakarta namespace migration | `javax-to-jakarta-migration` |
+| Native image for Spring Boot | `java-add-graalvm-native-image-support` |
+| JVM diagnostics | `java-diagnostics` |
+
 ## Source
 
 Part of [Awesome Copilot](https://github.com/github/awesome-copilot).

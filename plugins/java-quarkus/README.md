@@ -27,6 +27,21 @@ copilot plugin install java-quarkus@awesome-copilot
 
 This plugin bundles the core Java skills it relies on, so `java-development` is not required.
 
+## Which skill to use when
+
+| Need | Skill |
+|---|---|
+| Create a new Quarkus project | `create-quarkus-project` |
+| Dev Services and Quarkus tests | `quarkus-dev-services-and-testing` |
+| Native executables and container images | `quarkus-native-and-container` |
+| JPA/Hibernate mapping, queries, schema management | `java-hibernate-jpa` |
+| Generic Testcontainers (outside Dev Services) | `java-testcontainers` |
+| Java/Quarkus version upgrades | `java-upgrade` |
+| Explicit javax to jakarta namespace migration | `javax-to-jakarta-migration` |
+| JVM diagnostics | `java-diagnostics` |
+
+`java-add-graalvm-native-image-support` dispatches Quarkus projects to `quarkus-native-and-container`.
+
 ## Source
 
 Part of [Awesome Copilot](https://github.com/github/awesome-copilot).

@@ -5,7 +5,7 @@ description: 'Write reliable integration tests in plain Java with Testcontainers
 
 # Java Testcontainers (2.x)
 
-Run real dependencies (databases, brokers, caches) in Docker for integration tests. This skill is framework-neutral. For Spring Boot (`@ServiceConnection`, `@DynamicPropertySource`, test slices) use the `spring-boot-testing` skill; for Quarkus, rely on Dev Services (Quarkus skills/docs), not hand-wired containers.
+Run real dependencies (databases, brokers, caches) in Docker for integration tests. This skill is framework-neutral. If the project uses Spring Boot and the `spring-boot-testing` skill is installed, use it for `@ServiceConnection`, `@DynamicPropertySource` and test slices; for Quarkus, rely on Dev Services (Quarkus skills/docs), not hand-wired containers.
 
 ## Workflow
 

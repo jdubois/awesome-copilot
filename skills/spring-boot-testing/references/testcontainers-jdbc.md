@@ -120,20 +120,19 @@ class MultiDatabaseTest {
 
 ## Container Reuse (Speed Optimization)
 
-Add to `~/.testcontainers.properties`:
-
-```properties
-testcontainers.reuse.enable=true
-```
-
-Then enable reuse in code:
+Cross-run reuse is local-dev only. Opt in with `testcontainers.reuse.enable=true` in `~/.testcontainers.properties`. `@Container` does not give cross-run reuse because the extension stops the container after the tests. Start the container manually, without extension-managed shutdown:
 
 ```java
-@Container
 @ServiceConnection
-static PostgreSQLContainer postgres = new PostgreSQLContainer("postgres:18")
+static final PostgreSQLContainer postgres = new PostgreSQLContainer("postgres:18")
   .withReuse(true);
+
+static {
+  postgres.start();
+}
 ```
+
+For the generic lifecycle, singleton and reuse rules, use the `java-testcontainers` skill.
 
 ## Database Initialization
 

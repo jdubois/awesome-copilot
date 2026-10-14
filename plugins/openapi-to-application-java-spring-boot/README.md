@@ -11,11 +11,9 @@ copilot plugin install openapi-to-application-java-spring-boot@awesome-copilot
 
 ## What's Included
 
-### Commands (Slash Commands)
+### Usage
 
-| Command | Description |
-|---------|-------------|
-| `/openapi-to-application-java-spring-boot:openapi-to-application-code` | Generate a complete, production-ready application from an OpenAPI specification |
+Invoke the `openapi-to-application` agent (or the `openapi-to-application-code` skill) and provide your OpenAPI specification.
 
 ### Skills
 

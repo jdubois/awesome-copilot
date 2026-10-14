@@ -1,6 +1,6 @@
 ---
 name: spring-boot-4-migration
-description: 'Migrate a Spring Boot 3.x application to Spring Boot 4.0 (Spring Framework 7, Jackson 3, modular starters, JSpecify). Use when upgrading Spring Boot, fixing Boot 4 build or test failures, or reviewing a Boot 4 migration. Covers Maven and Gradle (Kotlin DSL, version catalogs).'
+description: 'Migrate a Spring Boot 3.x application to Spring Boot 4.0 (Spring Framework 7, Jackson 3, modular starters, JSpecify). Use only for an explicit Boot 3.x to 4 migration, or to fix build or test failures caused by it, or to review one. Not for 3.x patch bumps or 4.0 to 4.1 upgrades (use java-upgrade). Covers Maven and Gradle (Kotlin DSL, version catalogs).'
 ---
 
 # Spring Boot 3.x to 4.0 Migration

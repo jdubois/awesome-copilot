@@ -39,7 +39,7 @@ Isolate data instead of containers: truncate tables in `@BeforeEach`, roll back 
 Reuse keeps containers alive after the JVM exits so the next run is instant.
 
 1. Opt in on the developer machine in `~/.testcontainers.properties`: `testcontainers.reuse.enable=true`.
-2. Mark the container: `new PostgreSQLContainer("postgres:17-alpine").withReuse(true)`.
+2. Mark the container: `new PostgreSQLContainer("postgres:17-alpine").withReuse(true)`, and start it manually (static block or `start()`). Do not annotate it with `@Container`: the JUnit extension stops it after the tests, so nothing is reused.
 
 Caveats: reused containers are never stopped by Testcontainers (clean manually with `docker rm -f`); state persists, so tests must clean their own data; reuse is ignored unless both settings are present, so it is safe to leave `withReuse(true)` in code. Do not enable it in CI.
 

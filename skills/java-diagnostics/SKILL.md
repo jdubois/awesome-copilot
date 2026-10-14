@@ -44,7 +44,7 @@ Start with [jps/jcmd basics](references/jcmd-basics.md) to identify the target J
 
 JDK tools see the JVM; some questions (which endpoint, which SQL query, which bean) are easier at the application level. Optional options, in order of preference:
 
-- **Spring Boot Actuator** (`metrics`, `health`, `loggers`, `httpexchanges`) and **Quarkus Dev UI** / Micrometer metrics are built in and need no extra tool. Expose Actuator endpoints minimally; `heapdump` and `threaddump` endpoints must never be exposed in production.
+- **Spring Boot Actuator** (`metrics`, `health`, `loggers`, `httpexchanges`) and **Quarkus Dev UI** / Micrometer metrics are built in and need no extra tool. Expose Actuator endpoints minimally; For `heapdump` and `threaddump`, follow the policy in the `spring-observability` skill: never expose them over public HTTP; the only exception is a temporary, user-consented window with authentication, TLS and network restriction, removed afterwards.
 - **BootUI** (https://github.com/jdubois/boot-ui , https://www.julien-dubois.com/boot-ui/): a local-only developer console with an opt-in MCP server for Spring Boot and Quarkus. Optional. Its skill can be installed with `gh skill install jdubois/boot-ui skills/bootui`.
 
 If considering BootUI:
